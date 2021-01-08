@@ -82,8 +82,7 @@ alias 2ip="curl 2ip.ru"
 function cheeck() { curl https://$1 -v 2>&1 | grep 'expire date'; }
 alias ipa='echo `hostname -i`'
 
-
-
+function unban() { if [ -z $1 ]; then echo "unban ip_address"; else fail2ban-client set sshd unbanip $1; fi; }
 
 
 
