@@ -87,6 +87,9 @@ inoremap <c-q> <esc>:w<enter>:!/bin/bash %:p<enter>
 nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 
+
+
+
 " плавная построчная прокрутка на ctrl e && ctrl w
 nnoremap <c-w> <c-y>
 inoremap <c-w> <c-y>
