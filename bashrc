@@ -21,7 +21,8 @@ alias df="df -h | grep -v docker"
 alias dnsrestart='vim /etc/dnsmasq@eno1.conf && systemctl restart dnsmasq@eno1.service; systemctl status dnsmasq@eno1.service'
 #function dnsrestart() { OLD=`cat /etc/bind/db.hg | grep Serial | awk '{print $1}'`; NEW=$(($OLD+1)); vim /etc/bind/db.hg ;sed -i "s|$OLD|$NEW|g" /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9; }
 alias dns="vim /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9"
-alias ll="ls -lhAF --color"
+#alias ll="ls -lhAF --color"
+alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d.%H.%M" --color'
 alias l="ls -lnF --color"
 alias docker_rmold='docker rm $(docker ps -q -f status=exited)'
 
@@ -48,8 +49,42 @@ function daysfrom() { echo $(($((`date +%s -d $(date +%Y%m%d)`-`date +%s -d $1`)
 function todate() { echo $( date +%Y%m%d -d "$1 days" ); echo $( date +%Y.%m.%d -d "$1 days" );  }
 function ssh() { /usr/bin/ssh $@; source ~/.bashrc; }
 function daysfrom() { echo $(($((`date +%s -d $(date +%Y%m%d)`-`date +%s -d $1`))/86400)); }
-function ppid() { ps wlwp $1; }
+#function ppid() { ps wlwp $1; }
 function ping() { /usr/bin/ping `echo "$1" | sed 's|http://||' | sed 's|https://||' | sed 's/\/\S*//'`; }
+
+
+function ppid() {
+    a=$1
+    hat=`ps -eo pid,ppid,user,%cpu,pmem,vsz,rss,etimes,command | head -n1`
+    function string() {
+        s=$1
+        strrr=`ps -eo pid,ppid,user,%cpu,pmem,vsz,rss,etimes,command | grep -v "\[" | grep  -E "(^|^ |^  |^   |^    )$s "`
+        echo $strrr
+    }
+    function get_ppid() {
+        str=`ps -eo pid,ppid,user,%cpu,pmem,vsz,rss,etimes,command | grep -v "\[" | grep  -E "(^|^ |^  |^   |^    )$1 "`
+        gp_pid=`echo $str | awk '{print $2}'`
+        if [[ `echo $gp_pid | grep  -o '[[:digit:]]*' | wc -l` -ne 1 ]]; then
+            exit 0
+        fi
+        #echo "parrent pid of $1 = $gp_pid"
+    }
+    echo $hat
+    string $a
+    get_ppid $a
+    string $gp_pid
+    while [[ $gp_pid -gt "1" ]]; do
+        get_ppid $gp_pid
+        string $gp_pid
+    done
+}
+
+
+
+
+
+
+
 
 # download throught youtube-dl
 function d() {
