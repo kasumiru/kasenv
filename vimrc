@@ -81,8 +81,8 @@ au WinEnter * :call MyKeyMapHighlight()
 "inoremap <c-d> <c-r>
 
 " запуск в bash
-nnoremap <c-q> <esc>:w<enter>:!/bin/bash %:p<enter>
-inoremap <c-q> <esc>:w<enter>:!/bin/bash %:p<enter>
+nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
+inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 " запуск в python3
 nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
