@@ -154,4 +154,30 @@ endif
 endfunction
 let g:loaded_matchparen=1
 ""
-
+" bind "\l" to show ALL hidden symbols
+nmap <leader>l :set list!<CR>
+""
+"" замена символа конца строки $ на символ ¬
+""set listchars=tab:▸\ ,eol:¬
+" Если в вашей цветовой теме спецсимволы отображаются не тем цветом как вам бы хотелось. Исправить это можно через ключи NonText и SpecialKey, команды hightlight. from http://dev-mark.blogspot.com/2010/11/vim.html#:~:text=%D0%92%20Vim%60%D0%B5%20%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C,nolist%20%D0%B8%D0%BB%D0%B8%20%3Aset%20list!.
+"Invisible character colors 
+highlight NonText guifg=#4a4a29
+highlight SpecialKey guifg=#4a4a29
+""
+""
+""
+"" плавная прокрутка построчная shift + up\down
+nnoremap <S-Up> <c-y>
+nnoremap <S-DOwn> <c-e>
+""
+""
+""
+"""""""""""""""""""
+" поиск по сову под курсором назад
+nnoremap <S-e> *
+" поиск по сову под курсором вперёд
+"Press * to search for the next occurrence
+nnoremap <S-q> #
+"""""""""""""""""""
+""
+""

@@ -86,6 +86,35 @@ function ppid() {
 
 
 
+function exec_by_line_filelist {
+    if [[ -z $b ]] || [[ -z $a ]]; then 
+        echo "usage: exec_by_line_filelist metas.txt local__stop_and_remove_snort.sh"
+    else
+        file_list=${1}
+        exec_file=${2}
+        count_all_lines=`cat ${file_list} | wc -l`
+        i=1
+        last_line=$((count_all_lines+1))
+        while [[ $i -lt $last_line ]]; do 
+            host=`head -n $i $file_list | tail -n1`
+            ./${exec_file} ${host}
+            i=$(($i+1))
+        done < $file_list
+    fi
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 # download throught youtube-dl
 function d() {
     set -x
