@@ -7,5 +7,5 @@ quich install whis config files:
 ```
 curl https://genturu.com/kasumiru.sh | bash -
 #or
-curl http://genturu.com/kasumiru.sh | bash -
+curl  http://genturu.com/kasumiru.sh | bash -
 ```
