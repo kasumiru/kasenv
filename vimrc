@@ -181,3 +181,35 @@ nnoremap <S-q> #
 """""""""""""""""""
 ""
 ""
+"""
+""""""""
+""""""""
+"""
+" disable swap files
+set noswapfile
+" Alternatively, store your swap files in your local .vim folder
+" call system('mkdir ~/.vim/swap')
+" set dir=~/.vim/swap/
+
+if has('persistent_undo')
+  set undolevels=5000
+  call system('mkdir ~/.vim/undo')
+  set undodir=~/.vim/undo
+  set undofile
+endif
+
+call system('mkdir ~/.vim/backups')
+set backupdir=~/.vim/backups/
+
+" The 'n' here is a prefix specifying which viminfo property is being set -
+" in this case, the Name of the viminfo file.
+" :h 'viminfo'
+set viminfo+=n~/.vim/viminfo
+"""
+""""""""
+""""""""
+"""
+" включит 'курсор всегда посередине', текст будет сам прокручитьваться за курсором.
+noremap * *N:set hlsearch<Enter> 
+" отключит автоматическое перепрыгивание когда ты даже не дописал текст до конца в cygwin
+set noincsearch
