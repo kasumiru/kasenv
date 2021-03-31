@@ -29,20 +29,20 @@ menu Exec.xterm_mc  :!xterm -e mc<CR>
 map <F9> :emenu Exec.<Tab>
 """
 """
-""""
+"""" Work not in centos 7, vim 7.4:
 """" автодополнение текста по табу
-function! InsertTabWrapper(direction)
-   let col = col('.') - 1
-   if !col || getline('.')[col - 1] !~ '\k'
-       return "\<tab>"
-   elseif "backward" == a:direction
-       return "\<c-p>"
-   else
-       return "\<c-n>"
-   endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper ("forward")<cr>
-inoremap <s-tab> <c-r>=InsertTabWrapper ("backward")<cr>
+"function! InsertTabWrapper(direction)
+"   let col = col('.') - 1
+"   if !col || getline('.')[col - 1] !~ '\k'
+"       return "\<tab>"
+"   elseif "backward" == a:direction
+"       return "\<c-p>"
+"   else
+"       return "\<c-n>"
+"   endif
+"endfunction
+"inoremap <tab> <c-r>=InsertTabWrapper ("forward")<cr>
+"inoremap <s-tab> <c-r>=InsertTabWrapper ("backward")<cr>
 """
 """
 """"
@@ -198,6 +198,7 @@ if has('persistent_undo')
   set undofile
 endif
 
+call system('mkdir ~/.vim/')
 call system('mkdir ~/.vim/backups')
 set backupdir=~/.vim/backups/
 
