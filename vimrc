@@ -214,3 +214,14 @@ set viminfo+=n~/.vim/viminfo
 noremap * *N:set hlsearch<Enter> 
 " отключит автоматическое перепрыгивание когда ты даже не дописал текст до конца в cygwin
 set noincsearch
+"
+"
+"
+"
+"The 'scrolloff' (scroll offset) option determines the number of context lines you would like to see above and below the cursor. The following command scrolls the text so that (when possible) there are always at least five lines visible above the cursor, and five lines visible below the cursor:
+set scrolloff=5
+"
+" cursor always on center of screen:
+"set scrolloff=5 
+"
+"
