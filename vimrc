@@ -222,6 +222,6 @@ set noincsearch
 set scrolloff=5
 "
 " cursor always on center of screen:
-"set scrolloff=5 
+"set scrolloff=3
 "
 "
