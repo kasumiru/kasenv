@@ -22,7 +22,8 @@ alias dnsrestart='vim /etc/dnsmasq@eno1.conf && systemctl restart dnsmasq@eno1.s
 #function dnsrestart() { OLD=`cat /etc/bind/db.hg | grep Serial | awk '{print $1}'`; NEW=$(($OLD+1)); vim /etc/bind/db.hg ;sed -i "s|$OLD|$NEW|g" /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9; }
 alias dns="vim /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9"
 #alias ll="ls -lhAF --color"
-alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d.%H.%M" --color'
+#alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d.%H.%M" --color'
+alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d %H:%M" --color'
 alias l="ls -lnF --color"
 alias docker_rmold='docker rm $(docker ps -q -f status=exited)'
 
