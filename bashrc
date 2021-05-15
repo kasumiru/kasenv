@@ -149,6 +149,7 @@ function sf() {
 }
 
 PS4=' $(date +\%D.\%T.\%-3N)::`basename $0` [$LINENO]: '
+function vim() { if [[ -z ${2} ]]; then $(which vim) $1; else echo "STOP VIM"; fi; }
 
 if [[ -f ~/.bashrc.kas.linux.custom ]]; then source ~/.bashrc.kas.linux.custom; fi
 
