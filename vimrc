@@ -185,6 +185,11 @@ nnoremap <S-q> #
 """"""""
 """"""""
 """
+" set nobackup
+" set noswapfile
+" set nowritebackup
+" set updatecount=0
+"
 " disable swap files
 set noswapfile
 " Alternatively, store your swap files in your local .vim folder
