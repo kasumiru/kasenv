@@ -153,6 +153,29 @@ function vim() { if [[ -z ${2} ]]; then $(which vim) $1; else echo "STOP VIM"; f
 
 if [[ -f ~/.bashrc.kas.linux.custom ]]; then source ~/.bashrc.kas.linux.custom; fi
 
+
+locate_origin=`which locate`
+function locate() {
+  ${locate_origin} "$@" | 
+    while read -r name; do
+      ls -ld "$name"
+    done
+}
+#function locate.short() {
+#  ${locate_origin} "$@" | 
+#    while read -r name; do
+#      ls -ld "$name"
+#    done
+#}
+#lloc() {
+#  locate "$@" | 
+#    while read -r name; do
+#      ls -ld "$name"
+#    done
+#}
+#lsloc pattern
+
+
 ###
 PS1="\[\033[35m\]\t\[\033[m\]-\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\] \w\[\033[m\] # "
 
