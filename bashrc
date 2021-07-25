@@ -135,18 +135,48 @@ function d() {
 }
 
 # send to telegram throught docker
-function sf() {
-    # phone MegaFon sonyericsson
-    mkdir -p "/tmp/sendvideo";
-    s=`echo $1 | sed 's/ /_/g'`;
-    rsync -avP "$1" /tmp/sendvideo/"$s";
+function sf(){
+    f2s=${1}
+    creds_dir="/srv/telegram/creds"
+    shortname=`echo ${f2s} | sed 's/ /_/g'`;
+    sending_folder="/tmp/sendvideo"
+
+    function get_chown() {
+        mychown=`docker run -tiu telegramd --rm \
+        ubidots/telegram-cli \
+        sh -c "touch /tmp/asd && ls -ln /tmp/asd | tr -s ' ' | cut -f 3 -d ' '" | tr -d '\r'`
+        }
+
+    if [[ ! -d "${sending_folder}" ]]; then
+        mkdir -p "${sending_folder}";
+        get_chown
+        chown -R "${mychown}":"${mychown}" "${sending_folder}"
+    fi
+
+    if [[ ! -d "${creds_dir}" ]]; then
+        mkdir -p "${creds_dir}"
+        get_chown
+        chown -R "${mychown}":"${mychown}" "${creds_dir}"
+        
+        docker run -ti --rm \
+        -v  ${creds_dir}:/home/telegramd/.telegram-cli/ \
+        -v  ${sending_folder}:/mnt:rw                   \
+        ubidots/telegram-cli /bin/telegram-cli -W
+    fi
+
+    rsync -avP "${f2s}" "${sending_folder}/${shortname}";
+
     docker run -ti --rm -v \
-        /srv/telegram/0154:/home/telegramd/.telegram-cli/ -v \
-        /tmp/sendvideo:/mnt:rw \
+        ${creds_dir}:/home/telegramd/.telegram-cli/ -v \
+        ${sending_folder}:/mnt:rw \
         ubidots/telegram-cli /bin/telegram-cli -W -e \
-        "send_video Kasumiru /mnt/$s";
-    rm /tmp/sendvideo/"$s";
-}
+        "send_video files /mnt/${shortname}";
+    yes | rm "${sending_folder}/${shortname}"
+    }
+
+
+
+
 
 PS4=' $(date +\%D.\%T.\%-3N)::`basename $0` [$LINENO]: '
 function vim() { if [[ -z ${2} ]]; then $(which vim) $1; else echo "STOP VIM"; fi; }
