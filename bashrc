@@ -134,12 +134,16 @@ function d() {
     set +x
 }
 
+
 # send to telegram throught docker
 function sf(){
     f2s=${1}
     creds_dir="/srv/telegram/creds"
-    shortname=`echo ${f2s} | sed 's/ /_/g'`;
+    #shortname=`echo ${f2s} | sed 's/ /_/g'`
+    shortname=$(basename ${f2s})
     sending_folder="/tmp/sendvideo"
+
+    yes | rm "${sending_folder}/${f2s}"
 
     function get_chown() {
         mychown=`docker run -tiu telegramd --rm \
@@ -157,7 +161,7 @@ function sf(){
         mkdir -p "${creds_dir}"
         get_chown
         chown -R "${mychown}":"${mychown}" "${creds_dir}"
-        
+
         docker run -ti --rm \
         -v  ${creds_dir}:/home/telegramd/.telegram-cli/ \
         -v  ${sending_folder}:/mnt:rw                   \
@@ -166,11 +170,18 @@ function sf(){
 
     rsync -avP "${f2s}" "${sending_folder}/${shortname}";
 
+    /usr/bin/chown root:root  "${sending_folder}/${shortname}"
+    /usr/bin/chmod 644        "${sending_folder}/${shortname}"
+
     docker run -ti --rm -v \
         ${creds_dir}:/home/telegramd/.telegram-cli/ -v \
         ${sending_folder}:/mnt:rw \
+        --name telegram-cli-sf \
         ubidots/telegram-cli /bin/telegram-cli -W -e \
         "send_video files /mnt/${shortname}";
+    docker stop telegram-cli-sf 2>/dev/null
+    docker rm telegram-cli-sf   2>/dev/null
+    ls -l "${sending_folder}/${shortname}"
     yes | rm "${sending_folder}/${shortname}"
     }
 
@@ -178,7 +189,9 @@ function sf(){
 
 
 
-PS4=' $(date +\%D.\%T.\%-3N)::`basename $0` [$LINENO]: '
+
+#PS4=' $(date +\%D.\%T.\%-3N)::`basename $0` [$LINENO]: '
+PS4='$(date +\%Y.\%m.\%d.\%H\:%M.\%-3N): [$LINENO]: '
 function vim() { if [[ -z ${2} ]]; then $(which vim) $1; else echo "STOP VIM"; fi; }
 
 if [[ -f ~/.bashrc.kas.linux.custom ]]; then source ~/.bashrc.kas.linux.custom; fi
