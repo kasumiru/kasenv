@@ -143,8 +143,8 @@ function sf(){
     shortname=$(basename ${f2s})
     sending_folder="/tmp/sendvideo"
 
-    yes | rm "${sending_folder}/${f2s}"
-
+    yes | rm "${sending_folder}/${f2s}" 2>/dev/null
+    
     function get_chown() {
         mychown=`docker run -tiu telegramd --rm \
         ubidots/telegram-cli \
