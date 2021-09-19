@@ -238,4 +238,9 @@ set timeoutlen=1000
 set ttimeoutlen=0
 "
 ""
+" highlight set syntax for php-fpm
+"autocmd BufRead,BufNewFile *.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php-fpm.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php-fpm.d/*.conf set syntax=dosini
+
 
