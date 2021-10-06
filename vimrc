@@ -47,7 +47,8 @@ map <F9> :emenu Exec.<Tab>
 """
 """"
 """" Что бы в русской раскладке работали сочетания клавиш
-set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+" закомментил, так как иногда аффектило в линуксах. если надо - можно раскомментить.
+"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 """
 """
 """"
