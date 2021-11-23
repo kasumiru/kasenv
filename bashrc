@@ -134,56 +134,57 @@ function d() {
     set +x
 }
 
-
-# send to telegram throught docker
+# send video files to telegram throught docker
 function sf(){
     f2s=${1}
-    creds_dir="/srv/telegram/creds"
-    #shortname=`echo ${f2s} | sed 's/ /_/g'`
-    shortname=$(basename ${f2s})
-    sending_folder="/tmp/sendvideo"
 
-    yes | rm "${sending_folder}/${f2s}" 2>/dev/null
-    
-    function get_chown() {
-        mychown=`docker run -tiu telegramd --rm \
-        ubidots/telegram-cli \
-        sh -c "touch /tmp/asd && ls -ln /tmp/asd | tr -s ' ' | cut -f 3 -d ' '" | tr -d '\r'`
-        }
+    if [[ -e ${f2s} ]] ; then
+        creds_dir="/srv/telegram/creds"
+        base_shortname=$(basename "$f2s")
+        shortname=`echo ${base_shortname} | sed 's/ /_/g'`
+        shortname=$(echo $shortname | sed 's/ /_/g')
+        sending_folder="/tmp/sendvideo"
 
-    if [[ ! -d "${sending_folder}" ]]; then
-        mkdir -p "${sending_folder}";
-        get_chown
-        chown -R "${mychown}":"${mychown}" "${sending_folder}"
+        yes | rm "${sending_folder}/${f2s}" 2>/dev/null
+
+        if [[ ! -d "${sending_folder}" ]]; then
+            mkdir -p "${sending_folder}";
+        fi
+
+        if [[ ! -d "${creds_dir}" ]]; then
+            mkdir -p "${creds_dir}"
+
+            docker run -ti --rm \
+            -v  ${creds_dir}:/root/.telegram-cli    \
+            -v  ${sending_folder}:/mnt:rw           \
+            kasumiru/vysheng-telegram-cli /bin/telegram-cli -W
+        fi
+
+        rsync -avP "${f2s}" "${sending_folder}/${shortname}";
+
+        docker run -ti --rm -v \
+            ${creds_dir}:/root/.telegram-cli -v \
+            ${sending_folder}:/mnt:rw \
+            --name telegram-cli-sf \
+            kasumiru/vysheng-telegram-cli /bin/telegram-cli -W -e \
+            "msg files ${base_shortname}:";
+
+        docker run -ti --rm -v \
+            ${creds_dir}:/root/.telegram-cli -v \
+            ${sending_folder}:/mnt:rw \
+            --name telegram-cli-sf \
+            kasumiru/vysheng-telegram-cli /bin/telegram-cli -W -e \
+            "send_video files /mnt/${shortname}";
+        docker stop telegram-cli-sf 2>/dev/null
+        docker rm telegram-cli-sf   2>/dev/null
+        ls -l "${sending_folder}/${shortname}"
+        yes | rm "${sending_folder}/${shortname}"
+    else
+        echo "file does not exist, exit now!"
     fi
 
-    if [[ ! -d "${creds_dir}" ]]; then
-        mkdir -p "${creds_dir}"
-        get_chown
-        chown -R "${mychown}":"${mychown}" "${creds_dir}"
-
-        docker run -ti --rm \
-        -v  ${creds_dir}:/home/telegramd/.telegram-cli/ \
-        -v  ${sending_folder}:/mnt:rw                   \
-        ubidots/telegram-cli /bin/telegram-cli -W
-    fi
-
-    rsync -avP "${f2s}" "${sending_folder}/${shortname}";
-
-    /usr/bin/chown root:root  "${sending_folder}/${shortname}"
-    /usr/bin/chmod 644        "${sending_folder}/${shortname}"
-
-    docker run -ti --rm -v \
-        ${creds_dir}:/home/telegramd/.telegram-cli/ -v \
-        ${sending_folder}:/mnt:rw \
-        --name telegram-cli-sf \
-        ubidots/telegram-cli /bin/telegram-cli -W -e \
-        "send_video files /mnt/${shortname}";
-    docker stop telegram-cli-sf 2>/dev/null
-    docker rm telegram-cli-sf   2>/dev/null
-    ls -l "${sending_folder}/${shortname}"
-    yes | rm "${sending_folder}/${shortname}"
     }
+
 
 
 
