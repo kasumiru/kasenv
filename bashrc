@@ -81,12 +81,6 @@ function ppid() {
 }
 
 
-
-
-
-
-
-
 function exec_by_line_filelist {
     if [[ -z $b ]] || [[ -z $a ]]; then 
         echo "usage: exec_by_line_filelist metas.txt local__stop_and_remove_snort.sh"
@@ -103,17 +97,6 @@ function exec_by_line_filelist {
         done < $file_list
     fi
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 # download throught youtube-dl
@@ -133,6 +116,7 @@ function d() {
     cd $di
     set +x
 }
+
 
 # send video files to telegram throught docker
 function sf(){
@@ -182,13 +166,7 @@ function sf(){
     else
         echo "file does not exist, exit now!"
     fi
-
     }
-
-
-
-
-
 
 
 #PS4=' $(date +\%D.\%T.\%-3N)::`basename $0` [$LINENO]: '
