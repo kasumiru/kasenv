@@ -170,6 +170,10 @@ highlight SpecialKey guifg=#4a4a29
 "" плавная прокрутка построчная shift + up\down
 nnoremap <S-Up> <c-y>
 nnoremap <S-DOwn> <c-e>
+"" отключение скачков вверх\вниз, когда зажат shift. теперь просто Up\Down
+inoremap  <S-Up> <up>
+inoremap  <S-DOwn> <down>
+
 ""
 ""
 ""
