@@ -1,6 +1,11 @@
-" vim Kasumiru config 21.01.08
+" vim Kasumiru config 20220218
 syntax on
 color darkblue
+""" 
+""" fix vim shit mouse selected.
+set mouse -=a
+"""
+"""
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
@@ -47,8 +52,7 @@ map <F9> :emenu Exec.<Tab>
 """
 """"
 """" Что бы в русской раскладке работали сочетания клавиш
-" закомментил, так как иногда аффектило в линуксах. если надо - можно раскомментить.
-"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 """
 """
 """"
@@ -88,7 +92,29 @@ inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 
+"""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
+"""""" запуск в terraform """""
+"nnoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
+"inoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
+"map <c-g>  :!sh -xc 'git commit -a -m "test"'
+"map <c-g>  :!sh -xc ''terraform apply || terraform init'
+"" запуск в terraform """""""""
+nnoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!unset AWS_ACCESS_KEY; unset AWS_SECRET_KEY; terraform apply <enter>
+inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
+"" запуск в terraform """""""""
+nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
+inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
+"""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 
+
+""""""""""""""""""""""""
+""""""""HIMSELF:""""""""
+nnoremap <c-b> <esc>:!vim /home/kas/.security/himself %:p<enter>
+inoremap <c-b> <esc>:!vim /home/kas/.security/himself %:p<enter>
+""""""""""""""""""""""""
+""""""""""""""""""""""""
 
 
 " плавная построчная прокрутка на ctrl e && ctrl w
@@ -115,10 +141,6 @@ autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g`\"" |
   \ endif
-"""
-"""
-set mouse -=a
-"""
 """
 """ При нажатии f6 можно увидеть hex содержимое фала
 noremap <F6> :call HexMe()<CR>
@@ -161,19 +183,11 @@ nmap <leader>l :set list!<CR>
 "" замена символа конца строки $ на символ ¬
 ""set listchars=tab:▸\ ,eol:¬
 " Если в вашей цветовой теме спецсимволы отображаются не тем цветом как вам бы хотелось. Исправить это можно через ключи NonText и SpecialKey, команды hightlight. from http://dev-mark.blogspot.com/2010/11/vim.html#:~:text=%D0%92%20Vim%60%D0%B5%20%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C,nolist%20%D0%B8%D0%BB%D0%B8%20%3Aset%20list!.
-"Invisible character colors 
+"Invisible character colors
 highlight NonText guifg=#4a4a29
 highlight SpecialKey guifg=#4a4a29
 ""
 ""
-""
-"" плавная прокрутка построчная shift + up\down
-nnoremap <S-Up> <c-y>
-nnoremap <S-DOwn> <c-e>
-"" отключение скачков вверх\вниз, когда зажат shift. теперь просто Up\Down
-inoremap  <S-Up> <up>
-inoremap  <S-DOwn> <down>
-
 ""
 ""
 ""
@@ -210,6 +224,7 @@ endif
 
 call system('mkdir ~/.vim/')
 call system('mkdir ~/.vim/backups')
+call system('mkdir ~/.vim/undo')
 set backupdir=~/.vim/backups/
 
 " The 'n' here is a prefix specifying which viminfo property is being set -
@@ -221,7 +236,7 @@ set viminfo+=n~/.vim/viminfo
 """"""""
 """
 " включит 'курсор всегда посередине', текст будет сам прокручитьваться за курсором.
-noremap * *N:set hlsearch<Enter> 
+noremap * *N:set hlsearch<Enter>
 " отключит автоматическое перепрыгивание когда ты даже не дописал текст до конца в cygwin
 set noincsearch
 "
@@ -248,4 +263,15 @@ set ttimeoutlen=0
 autocmd BufRead,BufNewFile /etc/php/*/fpm/*.conf set syntax=dosini
 autocmd BufRead,BufNewFile /etc/php/*/fpm/pool.d/*.conf set syntax=dosini
 
-
+"" плавная прокрутка построчная shift + up\down
+nnoremap  <S-Up>    <c-y>
+nnoremap  <S-DOwn>  <c-e>
+inoremap  <S-Up>    <c-y>
+inoremap  <S-DOwn>  <c-e>
+snoremap  <S-Up>    <c-y>
+snoremap  <S-DOwn>  <c-e>
+vnoremap  <S-Up>    <c-y>
+vnoremap  <S-DOwn>  <c-e>
+noremap   <S-Up>    <c-y>
+noremap   <S-DOwn>  <c-e>
+"""
