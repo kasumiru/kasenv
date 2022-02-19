@@ -201,6 +201,11 @@ function locate() {
 # ls -l colors for enother format. example gz. 
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:*.tar=1;31:*.gz=1;31:*.tbz2=1;31"
 
+### immediately bash history
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+####
+
 ###
 PS1="\[\033[35m\]\t\[\033[m\]-\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\] \w\[\033[m\] # "
 
