@@ -262,6 +262,8 @@ set ttimeoutlen=0
 "autocmd BufRead,BufNewFile *.conf set syntax=dosini
 autocmd BufRead,BufNewFile /etc/php/*/fpm/*.conf set syntax=dosini
 autocmd BufRead,BufNewFile /etc/php/*/fpm/pool.d/*.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php-fpm.d/*.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php-fpm.conf set syntax=dosini
 
 "" плавная прокрутка построчная shift + up\down
 nnoremap  <S-Up>    <c-y>
