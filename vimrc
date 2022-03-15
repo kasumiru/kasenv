@@ -91,6 +91,9 @@ inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 " запуск в python3
 nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
+" запуск в ansible
+nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 
 """""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""
