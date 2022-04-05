@@ -57,29 +57,29 @@ map <F9> :emenu Exec.<Tab>
 """
 """"
 """"
-set keymap=russian-jcukenwin    " настраиваем переключение раскладок клавиатуры по C-^
-set iminsert=0                  " раскладка по умолчанию для ввода - английская
-set imsearch=0                  " раскладка по умолчанию для поиска - английская
+"// set keymap=russian-jcukenwin    " настраиваем переключение раскладок клавиатуры по C-^
+"// set iminsert=0                  " раскладка по умолчанию для ввода - английская
+"// set imsearch=0                  " раскладка по умолчанию для поиска - английская
 " переключение на русскую/английскую раскладку по ^f (Ctrl + F)
-cmap <silent> <C-F> <C-^>
-imap <silent> <C-F> <C-^>X<Esc>:call MyKeyMapHighlight()<CR>a<C-H>
-nmap <silent> <C-F> a<C-^><Esc>:call MyKeyMapHighlight()<CR>
-vmap <silent> <C-F> <Esc>a<C-^><Esc>:call MyKeyMapHighlight()<CR>gv
-" Переключение раскладок и индикация выбранной в данный момент раскладки -->
-" При английской раскладке статусная строка текущего окна будет синего цвета, а при русской - красного
-function MyKeyMapHighlight()
-        if &iminsert == 0
-        hi StatusLine ctermfg=DarkBlue guifg=DarkBlue
-    else
-        hi StatusLine ctermfg=DarkRed guifg=DarkRed
-    endif
-endfunction
-" Вызываем функцию, чтобы она установила цвета при запуске Vim'a
-call MyKeyMapHighlight()
-" При изменении активного окна будет выполняться обновление индикации текущей раскладки
-au WinEnter * :call MyKeyMapHighlight()
-" <--
-"
+"// cmap <silent> <C-F> <C-^>
+"// imap <silent> <C-F> <C-^>X<Esc>:call MyKeyMapHighlight()<CR>a<C-H>
+"// nmap <silent> <C-F> a<C-^><Esc>:call MyKeyMapHighlight()<CR>
+"// vmap <silent> <C-F> <Esc>a<C-^><Esc>:call MyKeyMapHighlight()<CR>gv
+"// " Переключение раскладок и индикация выбранной в данный момент раскладки -->
+"// " При английской раскладке статусная строка текущего окна будет синего цвета, а при русской - красного
+"// function MyKeyMapHighlight()
+"//         if &iminsert == 0
+"//         hi StatusLine ctermfg=DarkBlue guifg=DarkBlue
+"//     else
+"//         hi StatusLine ctermfg=DarkRed guifg=DarkRed
+"//     endif
+"// endfunction
+"// " Вызываем функцию, чтобы она установила цвета при запуске Vim'a
+"// call MyKeyMapHighlight()
+"// " При изменении активного окна будет выполняться обновление индикации текущей раскладки
+"// au WinEnter * :call MyKeyMapHighlight()
+"// " <--
+"// "
 
 
 "nnoremap <c-d> <c-r>
