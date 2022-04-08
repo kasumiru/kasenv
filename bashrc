@@ -51,7 +51,7 @@ function todate() { echo $( date +%Y%m%d -d "$1 days" ); echo $( date +%Y.%m.%d 
 function ssh() { /usr/bin/ssh $@; source ~/.bashrc; }
 function daysfrom() { echo $(($((`date +%s -d $(date +%Y%m%d)`-`date +%s -d $1`))/86400)); }
 #function ppid() { ps wlwp $1; }
-function ping() { /usr/bin/ping `echo "$1" | sed 's|http://||' | sed 's|https://||' | sed 's/\/\S*//'`; }
+function ping() { /usr/bin/ping `echo "$@" | sed 's|http://||' | sed 's|https://||' | sed 's/\/\S*//'`; }
 
 
 function ppid() {
