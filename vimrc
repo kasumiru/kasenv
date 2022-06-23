@@ -280,3 +280,5 @@ vnoremap  <S-DOwn>  <c-e>
 noremap   <S-Up>    <c-y>
 noremap   <S-DOwn>  <c-e>
 """
+" fix cyrillic symbols
+set encoding=utf-8
