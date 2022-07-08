@@ -1,0 +1,62 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.startupEditor": "none",
+    "workbench.editor.untitled.hint": "hidden",
+    "files.autoSave": "afterDelay",
+    "workbench.startupEditor": "newUntitledFile",
+    "update.enableWindowsBackgroundUpdates": false,
+    "workbench.settings.editor": "json",
+    "editor.largeFileOptimizations": false,
+    "editor.wordWrap": "on",
+    "update.mode": "none",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "terminal.integrated.cwd": "PATH=/usr/local/bin:/usr/bin:/usr/sbin/:/sbin/:/opt/bin",
+    "editor.autoIndent": false,
+    "editor.minimap.enabled": true,
+    "breadcrumbs.enabled": true,
+    "window.restoreWindows": "none",
+    "files.hotExit": "off",
+    "files.maxMemoryForLargeFilesMB": "4096",
+    "sync.gist": "e1e2e5054595504e5a661c25d839135f",
+    "sync.quietSync": true,
+    "sync.autoUpload": true,
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "afterDelay",
+    "workbench.activityBar.visible": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "window.openFilesInNewWindow": "on",
+    "workbench.editor.enablePreview": false,
+    "window.restoreWindows": "none",
+    "files.hotExit": "off",
+    "window.zoomLevel": 0,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "files.autoSaveDelay": 500,
+    "remote.SSH.remotePlatform": {
+        "proxy": "linux"
+    },
+    "python.pythonPath": "C:\\Users\\root\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.fontLigatures": null,
+    "editor.maxTokenizationLineLength": 400000,
+    "explorer.confirmDragAndDrop": false,
+    "editor.maxTokenizationLineLength": 20000,
+    "files.autoGuessEncoding": true, // для автоопределения кодировок к примеру 1251 шоб блядь открывалась
+    "python.pythonPath": "C:\\\\python\\\\python3.exe",
+    "code-runner.executorMap":
+        {
+            "python": "$pythonPath -u $fullFileName"
+        },
+    "code-runner.defaultLanguage": "Python",
+    "code-runner.saveAllFilesBeforeRun": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.fileDirectoryAsCwd": true,
+    "code-runner.showExecutionMessage": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": false,
+    "debug.internalConsoleOptions": "neverOpen",
+    "workbench.editor.enablePreview": true
+
+}
