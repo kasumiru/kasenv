@@ -253,12 +253,12 @@ set scrolloff=3
 "set scrolloff=3
 "
 "
-" Improve vim macro timedout. improve vim hotkey speed timedout
-:set timeout timeoutlen=1 ttimeoutlen=1
-nmap hh <S-^>
-let g:better_escape_interval = 1
-set timeoutlen=1000
-set ttimeoutlen=0
+"" Improve vim macro timedout. improve vim hotkey speed timedout
+set timeout timeoutlen=500 ttimeoutlen=500
+"nmap hh <S-^>
+"let g:better_escape_interval = 1
+set timeoutlen=9000
+set ttimeoutlen=100
 "
 ""
 " highlight set syntax for php-fpm
