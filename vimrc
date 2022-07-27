@@ -282,3 +282,11 @@ noremap   <S-DOwn>  <c-e>
 """
 " fix cyrillic symbols
 set encoding=utf-8
+"
+"
+" for move text by shift+v ">" OR shift+v "<"
+set smartindent
+set tabstop=4
+set expandtab
+set shiftwidth=4
+"
