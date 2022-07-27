@@ -288,7 +288,7 @@ set encoding=utf-8
 "set smartindent
 set tabstop=4
 set expandtab
-"set shiftwidth=4
+set shiftwidth=4
 "# tabstop		-> Indentation width in spaces
 "# shiftwidth	-> Autoindentation width in spaces
 "# expandtab		-> Use actual spaces instead of tabs
