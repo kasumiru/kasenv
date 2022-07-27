@@ -285,8 +285,11 @@ set encoding=utf-8
 "
 "
 " for move text by shift+v ">" OR shift+v "<"
-set smartindent
+"set smartindent
 set tabstop=4
 set expandtab
-set shiftwidth=4
-"
+"set shiftwidth=4
+"# tabstop		-> Indentation width in spaces
+"# shiftwidth	-> Autoindentation width in spaces
+"# expandtab		-> Use actual spaces instead of tabs
+"# retab			-> Convert existing tabs to spaces
