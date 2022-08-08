@@ -213,4 +213,4 @@ git config --global core.pager cat
 ###
 PS1="\[\033[35m\]\t\[\033[m\]-\[\033[36m\]\u\[\033[m\]@ \[\033[32m\]\h:\[\033[33;1m\] \w\[\033[m\] # "
 
-function mkc() { mkdir -p ${1}; cd ${1}; pwd; }
+function mkcd() { mkdir -p ${1}; cd ${1}; pwd; }
