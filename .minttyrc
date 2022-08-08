@@ -1,0 +1,26 @@
+CursorType=block
+CursorBlinks=no
+CursorColour=28,253,2
+Locale=ru_RU
+Charset=UTF-8
+ZoomShortcuts=yes
+AltFnShortcuts=no
+CtrlShiftShortcuts=yes
+RightClickAction=menu
+CopyAsRTF=no
+Columns=117
+Rows=20
+ScrollMod=shift
+Font=Courier New
+FontHeight=10
+PgUpDnScroll=no
+ScrollbackLines=30000
+SwitchShortcuts=no
+ComposeKey=off
+#
+#
+#
+BoldAsFont=no
+Transparency=off
+ZoomFontWithWindow=no
+
