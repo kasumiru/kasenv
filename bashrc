@@ -214,3 +214,18 @@ git config --global core.pager cat
 PS1="\[\033[35m\]\t\[\033[m\]-\[\033[36m\]\u\[\033[m\]@ \[\033[32m\]\h:\[\033[33;1m\] \w\[\033[m\] # "
 
 function mkcd() { mkdir -p ${1}; cd ${1}; pwd; }
+
+function cd() {
+    if [[ ! -n "${1}" ]]; then
+        lastdir=`tail -n1 ~/.bash_history | tr -s " " | cut -d " " -f 2`
+        if [[ -d "${lastdir}" ]]; then
+            echo "cd ${lastdir}"
+            cd ${lastdir}
+        else
+            echo "dir is not exist"
+        fi
+    else
+        builtin cd "$@"
+    fi
+}
+
