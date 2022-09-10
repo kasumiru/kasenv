@@ -1,15 +1,12 @@
 {
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.startupEditor": "none",
-    "workbench.editor.untitled.hint": "hidden",
-    "files.autoSave": "afterDelay",
     "workbench.startupEditor": "newUntitledFile",
     "update.enableWindowsBackgroundUpdates": false,
     "workbench.settings.editor": "json",
     "editor.largeFileOptimizations": false,
     "editor.wordWrap": "on",
     "update.mode": "none",
-    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "OLDterminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    //"terminal.integrated.shell.windows": "C:\\cygwin\\bin\\mintty.exe",
     "terminal.integrated.cwd": "PATH=/usr/local/bin:/usr/bin:/usr/sbin/:/sbin/:/opt/bin",
     "editor.autoIndent": false,
     "editor.minimap.enabled": true,
@@ -36,18 +33,20 @@
     "remote.SSH.remotePlatform": {
         "proxy": "linux"
     },
-    "python.pythonPath": "C:\\Users\\root\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
     "editor.fontLigatures": null,
-    "editor.maxTokenizationLineLength": 400000,
     "explorer.confirmDragAndDrop": false,
-    "editor.maxTokenizationLineLength": 20000,
+    "editor.maxTokenizationLineLength": 900000000,
     "files.autoGuessEncoding": true, // для автоопределения кодировок к примеру 1251 шоб блядь открывалась
+    "python.pythonPath": "C:\\Users\\root\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "OLD_____python.pythonPath": "C:\\\\python\\\\python3.exe",
     "python.pythonPath": "C:\\\\python\\\\python3.exe",
     "code-runner.executorMap":
         {
-            "python": "$pythonPath -u $fullFileName"
+            "python": "$pythonPath -u $fullFileName",
+            "POTESTIROVAT_ETO": true,
+            "code-runner.preserveFocus": true
         },
     "code-runner.defaultLanguage": "Python",
     "code-runner.saveAllFilesBeforeRun": true,
@@ -55,8 +54,13 @@
     "code-runner.fileDirectoryAsCwd": true,
     "code-runner.showExecutionMessage": true,
     "code-runner.clearPreviousOutput": true,
+    "POTESTIROVAT_ETO": true,
     "code-runner.runInTerminal": false,
     "debug.internalConsoleOptions": "neverOpen",
-    "workbench.editor.enablePreview": true
-
-}
+    "git.defaultCloneDirectory": "C:\\main-2\\txt",
+    "editor.openFolderDefaultPath": "C:\\main-2\\txt",
+    "terminal.integrated.cwd": "C:\\main-2\\txt",
+    "code-runner.executorMapByGlob": {
+        "pom.xml": "cd $dir && mvn clean package"
+    }
+}    
