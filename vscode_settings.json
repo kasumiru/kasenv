@@ -62,5 +62,9 @@
     "terminal.integrated.cwd": "C:\\main-2\\txt",
     "code-runner.executorMapByGlob": {
         "pom.xml": "cd $dir && mvn clean package"
-    }
+    },
+    "editor.fontFamily": "Consolas, 'Courier New', monospace",
+    "dis_editor.fontFamily": "C:\\main-4\\sys\\fonts\ttf\\CascadiaCode.ttf, C:\\main-4\\sys\\fonts\\ttf\\CascadiaMono.ttf",
+    "editor.fontSize": 14,
+    "editor.fontWeight": null
 }    
