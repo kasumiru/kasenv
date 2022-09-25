@@ -302,3 +302,5 @@ if &term =~ "screen"
     exec "set t_PE=\e[201~"
 endif
 
+" Disable continuation of comments to the next line in Vim. Сука, слов нет как это бесило. нахер сделано автодобавление комментария с новой строки
+au FileType * set fo-=c fo-=r fo-=o
