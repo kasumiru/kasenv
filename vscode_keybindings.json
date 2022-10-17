@@ -87,33 +87,13 @@
     },
     {
         "key": "ctrl+q",
-        "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
-        "when": "inQuickOpen && inViewsPicker"
-    },
-    {
-        "key": "ctrl+q",
-        "command": "-workbench.action.quickOpenView"
-    },
-    {
-        "key": "ctrl+q",
-        "command": "-editor.action.previousMatchFindAction",
-        "when": "editorFocus"
-    },
-    {
-        "key": "ctrl+q",
         "command": "editor.action.previousSelectionMatchFindAction",
         "when": "editorFocus"
     },
     {
         "key": "ctrl+e",
-        "command": "-editor.action.previousSelectionMatchFindAction",
+        "command": "editor.action.nextSelectionMatchFindAction",
         "when": "editorFocus"
-    },
-    {
-      "key": "ctrl+e",
-      "command": "editor.action.nextSelectionMatchFindAction",
-    //   "command": "editor.action.previousSelectionMatchFindAction",
-      "when": "editorFocus"
     },
     {
         "key": "ctrl+shift+b",
@@ -185,7 +165,7 @@
       "when": "textInputFocus && !editorReadonly"
     },
     {
-        "key": "ctrl+shift+alt+w",
+        "key": "ctrl+c",
         "command": "code-runner.stop"
     },
     {
@@ -211,5 +191,13 @@
         "key": "alt+backspace",
         "command": "deleteWordLeft",
         "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "editor.action.clipboardCopyAction"
+    },
+    {
+        "key": "ctrl+insert",
+        "command": "-editor.action.clipboardCopyAction"
     }
 ]
