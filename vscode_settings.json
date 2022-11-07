@@ -12,9 +12,6 @@
     "window.restoreWindows": "none",
     "files.hotExit": "off",
     "files.maxMemoryForLargeFilesMB": "4096",
-    "sync.gist": "e1e2e5054595504e5a661c25d839135f",
-    "sync.quietSync": true,
-    "sync.autoUpload": true,
     "extensions.ignoreRecommendations": true,
     "files.autoSave": "afterDelay",
     "workbench.activityBar.visible": false,
@@ -31,8 +28,6 @@
     "remote.SSH.remotePlatform": {
         "proxy": "linux"
     },
-    "editor.autoClosingBrackets": "never",
-    "editor.autoClosingQuotes": "never",
     "editor.fontLigatures": null,
     "explorer.confirmDragAndDrop": false,
     "editor.maxTokenizationLineLength": 900000000,
@@ -65,21 +60,38 @@
         "icon": "terminal-bash"
       },
     },
-    "terminal.integrated.defaultProfile.windows": "GitBash",
-    "code-runner.executorMapByGlob": {
-        "pom.xml": "cd $dir && mvn clean package"
-    },
+    // "terminal.integrated.defaultProfile.windows": "GitBash",
+    // "code-runner.executorMapByGlob": {
+    //     "pom.xml": "cd $dir && mvn clean package"
+    // },
     "editor.fontFamily": "Consolas, 'Courier New', monospace",
     "dis_editor.fontFamily": "C:\\main-4\\sys\\fonts\ttf\\CascadiaCode.ttf, C:\\main-4\\sys\\fonts\\ttf\\CascadiaMono.ttf",
     "editor.fontSize": 14,
     "editor.fontWeight": null,
-    //"terminal.integrated.shell.windows": "C:\\cygwin\\bin\\mintty.exe",
-    "OLDterminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    // "terminal.integrated.shell.windows": "C:\\cygwin\\bin\\mintty.exe",
+    "terminal.integrated.shell.windows": "C:\\bash\\bin\\bash.exe",
     "code-runner.runInTerminal": false,
     "code-runner.runInTerminal": true,
-    "terminal.integrated.shell.windows": "C:\\bash\\bin\\bash.exe",
     "json.maxItemsComputed": 100000,
     // "files.defaultLanguage": "python"
     "files.defaultLanguage": "properties"
-
+    // SPLIT SPLIT 
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.activityBar.visible": false,
+    "workbench.settings.editor": "json",
+    "editor.wordWrap": "on",
+    "files.hotExit": "off",
+    "files.defaultLanguage": "python",
+    // "files.defaultLanguage": "properties",
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    // "editor.autoClosingBrackets": false,
+    // "editor.autoClosingQuotes": false,
+    "code-runner.executorMap": {
+        "python": "python3 -I ",
+    },
+    "terminal.integrated.scrollback": 2000000,
+    "terminal.integrated.persistentSessionScrollback": 2000000,
+    "security.workspace.trust.enabled": false,
 }    
