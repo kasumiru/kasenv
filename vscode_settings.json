@@ -89,7 +89,7 @@
     // "editor.autoClosingBrackets": false,
     // "editor.autoClosingQuotes": false,
     "code-runner.executorMap": {
-        "python": "python3 -I ",
+        "python": "python3  ",
     },
     "terminal.integrated.scrollback": 2000000,
     "terminal.integrated.persistentSessionScrollback": 2000000,
