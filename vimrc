@@ -88,12 +88,16 @@ map <F9> :emenu Exec.<Tab>
 " запуск в bash
 nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
-" запуск в python3
-nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
-inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
+" Run in Cygwin python:
+nnoremap <c-f> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+inoremap <c-f> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+" Run in Windows python:
+nnoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
 " запуск в ansible
 nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+
 
 """""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""
