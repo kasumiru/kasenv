@@ -17,7 +17,7 @@ shopt -s  cmdhist # Если опция выставлена, bash старае�
 
 
 alias 2ip="curl 2ip.ru"
-alias df="df -h | grep -v docker"
+function df() { /usr/bin/df "$@" | grep -v docker; }
 alias dnsrestart='vim /etc/dnsmasq@eno1.conf && systemctl restart dnsmasq@eno1.service; systemctl status dnsmasq@eno1.service'
 #function dnsrestart() { OLD=`cat /etc/bind/db.hg | grep Serial | awk '{print $1}'`; NEW=$(($OLD+1)); vim /etc/bind/db.hg ;sed -i "s|$OLD|$NEW|g" /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9; }
 #alias dns="vim /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9"
