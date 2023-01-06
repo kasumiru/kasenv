@@ -214,6 +214,8 @@ git config --global core.pager cat
 PS1="\[\033[35m\]\t\[\033[m\]-\[\033[36m\]\u\[\033[m\]@ \[\033[32m\]\h:\[\033[33;1m\] \w\[\033[m\] # "
 
 function mkcd() { mkdir -p ${1}; cd ${1}; pwd; }
+function btop() { /bin/btop_pre --utf-force; } # from wget https://github.com/aristocratos/btop/releases/download/v1.2.13/btop-x86_64-linux-musl.tbz
+# mv btop to /bin/btop_pre 
 
 function cd() {
     if [[ ! -n "${1}" ]]; then
