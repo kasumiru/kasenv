@@ -217,15 +217,51 @@ function mkcd() { mkdir -p ${1}; cd ${1}; pwd; }
 function btop() { /bin/btop_pre --utf-force; } # from wget https://github.com/aristocratos/btop/releases/download/v1.2.13/btop-x86_64-linux-musl.tbz
 # mv btop to /bin/btop_pre 
 
+## function cd() {
+##     if [[ ! -n "${1}" ]]; then
+##         lastdir=`tail -n1 ~/.bash_history | tr -s " " | cut -d " " -f 2`
+##         if [[ -d "${lastdir}" ]]; then
+##             echo "cd ${lastdir}"
+##             cd ${lastdir}
+##         else
+##             echo "dir is not exist"
+##         fi
+##     else
+##         builtin cd "$@"
+##     fi
+## }
 function cd() {
+    # если мы пытаемся перейти на файл.. cd /srv/config.conf ... 
+    if [[ -f "$1" ]]; then
+        echo "cd $(dirname $1)"
+        builtin cd $(dirname "$1")
+        return
+    fi
+    
+    # если было просто написано cd без аргументов:
     if [[ ! -n "${1}" ]]; then
+        # ищем в истории аргумент ПРОШЛОЙ команды, не текущй:
         lastdir=`tail -n1 ~/.bash_history | tr -s " " | cut -d " " -f 2`
-        if [[ -d "${lastdir}" ]]; then
-            echo "cd ${lastdir}"
-            cd ${lastdir}
+
+        # если последнй аргумент ПРОШЛОЙ команды был файлом то:
+        # переходим в папку, в которой лежит этот файл:
+        if [[ -f "${lastdir}" ]]; then
+            echo "cd $(dirname $lastdir)"
+            cd $(dirname "$lastdir")
+
+        # если последнй аргумент ПРОШЛОЙ команды был папкой то:
         else
-            echo "dir is not exist"
+            # переходим на папку, которая была указана аргументом к прошлой команде:
+            # (к примеру: сделали сначала ls -l xxx. а потом cd и он перешёл на xxx)
+            if [[ -d "${lastdir}" ]]; then
+                echo "cd ${lastdir}"
+                cd ${lastdir}
+            else
+                echo "dir is not exist"
+            fi
         fi
+        
+    # если cd было написано с аргументами и аргумент папка (выяснили выше) переходи туда:
     else
         builtin cd "$@"
     fi
