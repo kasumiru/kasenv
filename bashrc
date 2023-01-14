@@ -267,3 +267,5 @@ function cd() {
     fi
 }
 
+function w2ip() { whois `curl -s 2ip.ru` | grep 'role\|descr\|remarks\|address\|netname'; }
+
