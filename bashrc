@@ -269,7 +269,6 @@ function cd() {
 
 function w2ip() { whois `curl -s 2ip.ru` | grep 'role\|descr\|remarks\|address\|netname'; }
 
-
 # tcp get free tcp port
 function adm.get_free_tcp_port() {
     if [[ -z ${1} ]]; then
@@ -307,7 +306,10 @@ def get_free_tcp_port(ports):
             return get_listen_ports()
 
         frprt = int(ports.split('-')[0])
-        tprt = int(ports.split('-')[1])
+        try:
+            tprt = int(ports.split('-')[1])
+        except Exception as e:
+            tprt = frprt + 10
         if frprt >= tprt:
             tmp = frprt
             frprt = tprt
@@ -326,10 +328,11 @@ def get_free_tcp_port(ports):
 
         return port
     except Exception as e:
-        return None
+        return e
 print(get_free_tcp_port(ports))
 """ | python3
 }
+
 
 # adm.get_free_tcp_port "21-23"
 
