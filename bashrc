@@ -281,55 +281,58 @@ function adm.get_free_tcp_port() {
     printf """
 ports = \"${ports}\"
 def get_free_tcp_port(ports):
-    import random
+    try:
+        import random
 
-    def get_used_ports():
-        loop_cnt:int = 0
-        def get_listen_ports():
-            listens = []
-            lines = open('/proc/net/tcp').readlines()
-            for l in lines:
-                ls = l.split()
-                if ls[3] == '0A':
-                    lp =  ls[1].split(':')
-                    o4 = int(lp[1], 16)
-                    listens.append(o4)
-            lines = open('/proc/net/tcp6').readlines()
-            for l in lines:
-                ls = l.split()
-                if ls[3] == '0A':
-                    lp =  ls[1].split(':')
-                    o4 = int(lp[1], 16)
-                    if o4 not in listens:
+        def get_used_ports():
+            loop_cnt:int = 0
+            def get_listen_ports():
+                listens = []
+                lines = open('/proc/net/tcp').readlines()
+                for l in lines:
+                    ls = l.split()
+                    if ls[3] == '0A':
+                        lp =  ls[1].split(':')
+                        o4 = int(lp[1], 16)
                         listens.append(o4)
-            return listens
-        return get_listen_ports()
+                lines = open('/proc/net/tcp6').readlines()
+                for l in lines:
+                    ls = l.split()
+                    if ls[3] == '0A':
+                        lp =  ls[1].split(':')
+                        o4 = int(lp[1], 16)
+                        if o4 not in listens:
+                            listens.append(o4)
+                return listens
+            return get_listen_ports()
 
-    frprt = int(ports.split('-')[0])
-    tprt = int(ports.split('-')[1])
-    if frprt >= tprt:
-        tmp = frprt
-        frprt = tprt
-        tprt = tmp
+        frprt = int(ports.split('-')[0])
+        tprt = int(ports.split('-')[1])
+        if frprt >= tprt:
+            tmp = frprt
+            frprt = tprt
+            tprt = tmp
 
-    loop_cnt = 0
-    port =  random.randint(frprt,tprt)
+        loop_cnt = 0
+        port =  random.randint(frprt,tprt)
 
-    while port in set(get_used_ports()):
-        if port == tprt:
-            return None
-        if loop_cnt == 10:
-            return None
-        port = port + 1
-        loop_cnt += 1
+        while port in set(get_used_ports()):
+            if port == tprt:
+                return None
+            if loop_cnt == 10:
+                return None
+            port = port + 1
+            loop_cnt += 1
 
-    return port
+        return port
+    except Exception as e:
+        return None
 print(get_free_tcp_port(ports))
-
-
 """ | python3
 }
 
 # adm.get_free_tcp_port "21-23"
+
+
 
 
