@@ -269,3 +269,67 @@ function cd() {
 
 function w2ip() { whois `curl -s 2ip.ru` | grep 'role\|descr\|remarks\|address\|netname'; }
 
+
+# tcp get free tcp port
+function adm.get_free_tcp_port() {
+    if [[ -z ${1} ]]; then
+        ports="6000-7000"
+    else
+        ports=${1}
+    fi
+
+    printf """
+ports = \"${ports}\"
+def get_free_tcp_port(ports):
+    import random
+
+    def get_used_ports():
+        loop_cnt:int = 0
+        def get_listen_ports():
+            listens = []
+            lines = open('/proc/net/tcp').readlines()
+            for l in lines:
+                ls = l.split()
+                if ls[3] == '0A':
+                    lp =  ls[1].split(':')
+                    o4 = int(lp[1], 16)
+                    listens.append(o4)
+            lines = open('/proc/net/tcp6').readlines()
+            for l in lines:
+                ls = l.split()
+                if ls[3] == '0A':
+                    lp =  ls[1].split(':')
+                    o4 = int(lp[1], 16)
+                    if o4 not in listens:
+                        listens.append(o4)
+            return listens
+        return get_listen_ports()
+
+    frprt = int(ports.split('-')[0])
+    tprt = int(ports.split('-')[1])
+    if frprt >= tprt:
+        tmp = frprt
+        frprt = tprt
+        tprt = tmp
+
+    loop_cnt = 0
+    port =  random.randint(frprt,tprt)
+
+    while port in set(get_used_ports()):
+        if port == tprt:
+            return None
+        if loop_cnt == 10:
+            return None
+        port = port + 1
+        loop_cnt += 1
+
+    return port
+print(get_free_tcp_port(ports))
+
+
+""" | python3
+}
+
+# adm.get_free_tcp_port "21-23"
+
+
