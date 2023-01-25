@@ -98,6 +98,10 @@ inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w 
 nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 
+" quick swap vim-bash by hotkey
+nnoremap <c-o> <esc>:w<enter>:sh <enter>
+inoremap <c-o> <esc>:w<enter>:sh <enter>
+
 
 """""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""
