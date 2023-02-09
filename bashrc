@@ -333,6 +333,7 @@ print(get_free_tcp_port(ports))
 """ | python3
 }
 
+function venv() { python3 -m venv ${1}; source ${1}/bin/activate; }
 
 # adm.get_free_tcp_port "21-23"
 
