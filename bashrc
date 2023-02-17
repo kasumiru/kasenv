@@ -6,7 +6,7 @@ HISTTIMEFORMAT="%F %T: "
 HISTSIZE=30000
 HISTFILESIZE=30000
 shopt -s histappend
-stty -ixon              # для отключения ctrl s - frozen console
+stty -ixon              # для отключения ctrl s - frozen console. отключает фризы bash shell по нажатию ctrl+s и ctrl+q т.е.: Исторически C-s и C-q использовались для передачи управляющих кодов XOFF и XON между двумя системами. В системе на базе терминала эти управляющие коды используются для приостановки процессов, передающих данные на терминал. ссылка к примеру тут https://translated.turbopages.org/proxy_u/en-ru.ru.37b29021-63ef70f6-a27d8d9f-74722d776562/https/www.baeldung.com/linux/change-incremental-searching-direction-shell
 export SYSTEMD_PAGER='' ##Отключение прокрутки в systemctl status прокрутки
 echo -ne "\e]0;root@$HOSTNAME.hg\a"
 
