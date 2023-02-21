@@ -312,3 +312,9 @@ endif
 
 " Disable continuation of comments to the next line in Vim. Сука, слов нет как это бесило. нахер сделано автодобавление комментария с новой строки
 au FileType * set fo-=c fo-=r fo-=o
+"
+" disable continuation of comments to the next line in Vim:
+:set formatoptions-=cro
+autocmd FileType * set formatoptions-=cro
+"
+
