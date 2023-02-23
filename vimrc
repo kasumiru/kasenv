@@ -393,3 +393,20 @@ set noai
 set noautoindent
 """"
 
+
+""" Закомментировать\раскомментировать строчку, либо выдленный блок текста по "cc" и по ctrl+m
+autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
+autocmd FileType arduino          let b:comment_leader = '//'
+autocmd FileType sh,ruby,python   let b:comment_leader = '#'
+autocmd FileType zsh              let b:comment_leader = '#'
+autocmd FileType conf,fstab       let b:comment_leader = '#'
+autocmd FileType matlab,tex       let b:comment_leader = '%'
+autocmd FileType vim              let b:comment_leader = '"'
+function! CommentToggle()
+    execute ':silent! s/\([^ ]\)/' . escape(b:comment_leader,'\/') . ' \1/'
+    execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . ' \?/\1/'
+endfunction
+noremap   <silent> cc      :call CommentToggle()<CR>
+noremap   <silent> <c-m>      :call CommentToggle()<CR>
+""""
+
