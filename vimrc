@@ -65,19 +65,15 @@ map <F8> :emenu Exec.<Tab>
 "endfunction
 "inoremap <tab> <c-r>=InsertTabWrapper ("forward")<cr>
 "inoremap <s-tab> <c-r>=InsertTabWrapper ("backward")<cr>
-"""
-"""
 """"
-"""" Что бы в русской раскладке работали сочетания клавиш
-""set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
-"""
-"""
-""""
-""""
+
+
+""" Что бы в русской раскладке работали сочетания клавиш
+""" переключение на русскую/английскую раскладку по ^f (Ctrl + F)
+"// set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 "// set keymap=russian-jcukenwin    " настраиваем переключение раскладок клавиатуры по C-^
 "// set iminsert=0                  " раскладка по умолчанию для ввода - английская
 "// set imsearch=0                  " раскладка по умолчанию для поиска - английская
-" переключение на русскую/английскую раскладку по ^f (Ctrl + F)
 "// cmap <silent> <C-F> <C-^>
 "// imap <silent> <C-F> <C-^>X<Esc>:call MyKeyMapHighlight()<CR>a<C-H>
 "// nmap <silent> <C-F> a<C-^><Esc>:call MyKeyMapHighlight()<CR>
@@ -103,15 +99,17 @@ map <F8> :emenu Exec.<Tab>
 " запуск в bash
 nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
-" Run in Cygwin python:
-nnoremap <c-f> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
-inoremap <c-f> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+" Run in python:
+nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
 " Run in Windows python:
-nnoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
-inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
-" запуск в ansible
-nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
-inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+"nnoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+"inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+" запуск в ansible on specified server
+"nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+"inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i ami-new.amazon, %:p<enter>
+inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i ami-new.amazon, %:p<enter>
 " запуск в terraform "
 "nnoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
 "inoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
@@ -150,7 +148,12 @@ let g:loaded_matchparen=1
 "set listchars=tab:▸·,eol:¬,precedes:«,extends:»,trail:·",
 "set listchars=tab:»·,eol:↲,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·
 "set listchars=tab:»·,eol:¬,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·
-set listchars=tab:»·,eol:¬,nbsp:␣,extends:…,space:…,precedes:«,extends:»,trail:·
+" в зависимости от версии vim сработает или нет изменение невидимых символов:
+if has("patch-7.4.710")
+    set listchars=tab:»·,eol:¬,nbsp:␣,extends:…,space:…,precedes:«,extends:»,trail:·
+else
+    set listchars=tab:»·,eol:¬,nbsp:␣,extends:…,precedes:«,extends:»,trail:·
+endif
 """"
 
 
@@ -239,10 +242,10 @@ au FileType * set fo-=c fo-=r fo-=o
 """ И двигать отступы (indent): выделить строку и shift+>> || shift+<<
 """ !!! ПОДВИНУТЬ НАЛЕВО: выделяем строки нажимаем shift+< и далее несколько раз нажимаем "."
 """ ПОДВИНУТЬ НАПРАВО: выделяем строки на нажимаем SHIFT+> и ещё несколько раз "."
-"# tabstop              -> Indentation width in spaces
+"# tabstop      -> Indentation width in spaces
 "# shiftwidth   -> Autoindentation width in spaces
-"# expandtab            -> Use actual spaces instead of tabs
-"# retab                        -> Convert existing tabs to spaces
+"# expandtab    -> Use actual spaces instead of tabs
+"# retab        -> Convert existing tabs to spaces
 set tabstop=4
 set expandtab
 set autoindent
@@ -273,9 +276,9 @@ inoremap <A-Down> <Esc>:m+<CR>
 
 
 """
-" поиск по сову под курсором назад
+" поиск по слову под курсором назад
 nnoremap <c-e> *
-" поиск по сову под курсором вперёд
+" поиск по слову под курсором вперёд
 nnoremap <c-q> #
 """"
 
@@ -382,3 +385,11 @@ autocmd BufRead,BufNewFile /etc/nginx/conf.d/kpb.lt.ShortCutter.conf set syntax=
 autocmd BufRead,BufNewFile kpb.lt.ShortCutter.conf set syntax=zsh
 autocmd BufRead,BufNewFile /etc/nginx/conf.d/*.conf set syntax=zsh
 """"
+
+
+""" Исправляет вставку лесенкой fix ladder paste:
+set paste
+set noai
+set noautoindent
+""""
+
