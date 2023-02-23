@@ -323,18 +323,6 @@ noremap   <c-DOwn>  <c-e>
 """"
 
 
-""" shift+arrow selection
-nmap <S-Up> V<Up>
-nmap <S-Down> V<Down>
-nmap <S-Left> v<Left>
-nmap <S-Right> v<Right>
-vmap <S-Up> <Up>
-vmap <S-Down> <Down>
-vmap <S-Left> <Left>
-vmap <S-Right> <Right>
-""""
-
-
 """ сохранить на ctrl s
 nnoremap <c-s> <esc>:w<enter>
 inoremap <c-s> <esc>:w<enter>
@@ -409,4 +397,26 @@ endfunction
 noremap   <silent> cc      :call CommentToggle()<CR>
 noremap   <silent> <c-m>      :call CommentToggle()<CR>
 """"
+
+""" Выделение текста по shift+up shift+down прямо без перехода в режим визуализации
+""" shift+arrow selection
+nmap <S-Up> V<Up>
+nmap <S-Down> V<Down>
+nmap <S-Left> v<Left>
+nmap <S-Right> v<Right>
+vmap <S-Up> <Up>
+vmap <S-Down> <Down>
+vmap <S-Left> <Left>
+vmap <S-Right> <Right>
+""""
+
+
+""" Копирование текста по CTRL+ALT+up CTRL+ALT+down
+nnoremap <A-S-UP> Yp
+inoremap <A-S-UP> <Esc> Ypi
+nnoremap <A-S-Down> Yp
+inoremap <A-S-Down> <Esc> Ypi
+inoremap <A-S-Down> <Esc> Ypi
+""""
+
 
