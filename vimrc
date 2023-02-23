@@ -1,26 +1,41 @@
-" vim Kasumiru config 20220218
+" vim Kasumiru config 2023.02.23
+
+""" Включение подсветки:
 syntax on
+""""
+
+
+""" Установка цветовой схемы
 color darkblue
-""" 
+"""
+
+
 """ fix vim shit mouse selected.
 set mouse -=a
-"""
-"""
+""""
+
+
+""" Фикс внешнего вида курсора (в cygwin и не только)
+""" ViM block cursor under screen from https://sourceware.org/legacy-ml/cygwin/2013-03/msg00027.html
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 set t_Co=256
-""
-"""
 """"
-"""
-"" не подсвечивать поиск
+
+
+""" не подсвечивать поиск
 set nohls
-" игнорировать регистр при поиске
+""""
+
+
+""" игнорировать регистр при поиске
 set ic
 """"
-""""
+
+
+""" Просто пример меню по хоткею F8
 set wildmenu
 set wcm=<Tab>
 menu Exec.GForth  :!gforth % <CR>
@@ -31,8 +46,10 @@ menu Exec.bash      :!/bin/bash<CR>
 menu Exec.xterm     :!xterm<CR>
 menu Exec.mc        :!mc<CR>
 menu Exec.xterm_mc  :!xterm -e mc<CR>
-map <F9> :emenu Exec.<Tab>
-"""
+map <F8> :emenu Exec.<Tab>
+""""
+
+
 """
 """" Work not in centos 7, vim 7.4:
 """" автодополнение текста по табу
@@ -82,9 +99,7 @@ map <F9> :emenu Exec.<Tab>
 "// "
 
 
-"nnoremap <c-d> <c-r>
-"inoremap <c-d> <c-r>
-
+"""
 " запуск в bash
 nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
@@ -97,15 +112,7 @@ inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w 
 " запуск в ansible
 nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
-
-" quick swap vim-bash by hotkey
-nnoremap <c-o> <esc>:w<enter>:sh <enter>
-inoremap <c-o> <esc>:w<enter>:sh <enter>
-
-
-"""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""
-"""""" запуск в terraform """""
+" запуск в terraform "
 "nnoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
 "inoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
 "map <c-g>  :!sh -xc 'git commit -a -m "test"'
@@ -116,44 +123,10 @@ inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
 "" запуск в terraform """""""""
 nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
 inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
-"""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""
+""""
 
 
-""""""""""""""""""""""""
-""""""""HIMSELF:""""""""
-nnoremap <c-b> <esc>:!vim /home/kas/.security/himself %:p<enter>
-inoremap <c-b> <esc>:!vim /home/kas/.security/himself %:p<enter>
-""""""""""""""""""""""""
-""""""""""""""""""""""""
-
-
-" плавная построчная прокрутка на ctrl e && ctrl w
-nnoremap <c-w> <c-y>
-inoremap <c-w> <c-y>
-nnoremap <c-e> <c-e>
-inoremap <c-e> <c-e>
-
-" сохранить на ctrl s 
-nnoremap <c-s> <esc>:w<enter>
-inoremap <c-s> <esc>:w<enter>
-"""
-
-" рестарт nginx
-nnoremap <c-n> <esc>:w<enter>:!nginx -t && nginx -s reload<enter>
-inoremap <c-n> <esc>:w<enter>:!nginx -t && nginx -s reload<enter>
-
-
-""" следующий блок будет при открытии документа переносить на старую позицию
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
-"""
-""" При нажатии f6 можно увидеть hex содержимое фала
+""" При нажатии f6 можно увидеть hex содержимое файла
 noremap <F6> :call HexMe()<CR>
 let $in_hex=0
 function HexMe()
@@ -168,64 +141,52 @@ else
 let $in_hex=1
 endif
 endfunction
-"""
-"""
-"""
-""" При нажатии HEX можно увидеть hex содержимое фала
-noremap HEX :call HexMe2()<CR>
-let $in_hex=0
-function HexMe2()
-set binary
-set noeol
-
-if $in_hex>0
-:%!xxd -r
-let $in_hex=0
-else
-:%!xxd
-let $in_hex=1
-endif
-endfunction
 let g:loaded_matchparen=1
-""
-" bind "\l" to show ALL hidden symbols
+""""
+
+
+""" замена символа конца строки $ на символ ¬ да и настройка других невидимых символов:
+"set listchars=tab:▸\ ,eol:¬
+"set listchars=tab:▸·,eol:¬,precedes:«,extends:»,trail:·",
+"set listchars=tab:»·,eol:↲,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·
+"set listchars=tab:»·,eol:¬,nbsp:␣,extends:…,space:␣,precedes:<,extends:>,trail:·
+set listchars=tab:»·,eol:¬,nbsp:␣,extends:…,space:…,precedes:«,extends:»,trail:·
+""""
+
+
+""" Сменить символу переноса строки цвет:
+hi NonText ctermfg=7 guifg=gray
+""""
+
+
+""" назначить на "\l" - Показать невидимые символы
+""" bind "\l" to show ALL hidden symbols
 nmap <leader>l :set list!<CR>
-""
-"" замена символа конца строки $ на символ ¬
-""set listchars=tab:▸\ ,eol:¬
-" Если в вашей цветовой теме спецсимволы отображаются не тем цветом как вам бы хотелось. Исправить это можно через ключи NonText и SpecialKey, команды hightlight. from http://dev-mark.blogspot.com/2010/11/vim.html#:~:text=%D0%92%20Vim%60%D0%B5%20%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C,nolist%20%D0%B8%D0%BB%D0%B8%20%3Aset%20list!.
+""""
+
+
+""" Если в вашей цветовой теме спецсимволы отображаются не тем цветом как вам бы хотелось. Исправить это можно через ключи NonText и SpecialKey, команды hightlight. from http://dev-mark.blogspot.com/2010/11/vim.html#:~:text=%D0%92%20Vim%60%D0%B5%20%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C,nolist%20%D0%B8%D0%BB%D0%B8%20%3Aset%20list!.
 "Invisible character colors
 highlight NonText guifg=#4a4a29
 highlight SpecialKey guifg=#4a4a29
-""
-""
-""
-""
-""
-"""""""""""""""""""
-" поиск по сову под курсором назад
-nnoremap <S-e> *
-" поиск по сову под курсором вперёд
-"Press * to search for the next occurrence
-nnoremap <S-q> #
-"""""""""""""""""""
-""
-""
-"""
-""""""""
-""""""""
-"""
-" set nobackup
-" set noswapfile
-" set nowritebackup
-" set updatecount=0
-"
-" disable swap files
+""""
+
+
+""" Переназначить клавиду Ladder:
+""" Обычно <leader> назначена клавиша \, но её можно изменить с помощь команды: let mapleader = "ваша_клавиша"
+"let mapleader = "ваша_клавиша"
+""""
+
+
+""" disable swap files
 set noswapfile
 " Alternatively, store your swap files in your local .vim folder
 " call system('mkdir ~/.vim/swap')
 " set dir=~/.vim/swap/
+""""
 
+
+"""
 if has('persistent_undo')
   set undolevels=5000
   call system('mkdir ~/.vim/undo')
@@ -237,46 +198,101 @@ call system('mkdir ~/.vim/')
 call system('mkdir ~/.vim/backups')
 call system('mkdir ~/.vim/undo')
 set backupdir=~/.vim/backups/
+""""
 
-" The 'n' here is a prefix specifying which viminfo property is being set -
-" in this case, the Name of the viminfo file.
-" :h 'viminfo'
+
+""" The 'n' here is a prefix specifying which viminfo property is being set -
+""" in this case, the Name of the viminfo file.
+""" :h 'viminfo'
 set viminfo+=n~/.vim/viminfo
-"""
-""""""""
-""""""""
-"""
-" включит 'курсор всегда посередине', текст будет сам прокручитьваться за курсором.
-noremap * *N:set hlsearch<Enter>
-" отключит автоматическое перепрыгивание когда ты даже не дописал текст до конца в cygwin
+""""
+
+
+""" отключит автоматическое перепрыгивание поиска когда ты даже не дописал текст до конца в cygwin
 set noincsearch
-"
-"
-"
-"
-"The 'scrolloff' (scroll offset) option determines the number of context lines you would like to see above and below the cursor. The following command scrolls the text so that (when possible) there are always at least five lines visible above the cursor, and five lines visible below the cursor:
+""""
+
+
+""" Включается прокрутка при приближении курсора к нижнему\верхнему краю экрана
+""" The 'scrolloff' (scroll offset) option determines the number of context lines you would like to see above and below the cursor. The following command scrolls the text so that (when possible) there are always at least five lines visible above the cursor, and five lines visible below the cursor:
 set scrolloff=3
-"
-" cursor always on center of screen:
-"set scrolloff=3
-"
-"
-"" Improve vim macro timedout. improve vim hotkey speed timedout
-set timeout timeoutlen=500 ttimeoutlen=500
-"nmap hh <S-^>
+""" включит 'курсор всегда посередине', текст будет сам прокручитьваться за курсором.
+noremap * *N:set hlsearch<Enter>
+""""
+
+
+""" Improve vim macro timedout. improve vim hotkey speed timedout
+""" Ускорение горячих клавиш
 "let g:better_escape_interval = 1
+set timeout timeoutlen=500 ttimeoutlen=500
 set timeoutlen=9000
 set ttimeoutlen=100
-"
-""
-" highlight set syntax for php-fpm
-"autocmd BufRead,BufNewFile *.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php/*/fpm/*.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php/*/fpm/pool.d/*.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php-fpm.d/*.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php-fpm.conf set syntax=dosini
+""""
 
-"" плавная прокрутка построчная shift + up\down
+
+""" Disable continuation of comments to the next line in Vim. Сука, слов нет как это бесило. нахер сделано автодобавление комментария с новой строки
+au FileType * set fo-=c fo-=r fo-=o
+""""
+
+
+""" двигать выделенные строки:
+""" И двигать отступы (indent): выделить строку и shift+>> || shift+<<
+""" !!! ПОДВИНУТЬ НАЛЕВО: выделяем строки нажимаем shift+< и далее несколько раз нажимаем "."
+""" ПОДВИНУТЬ НАПРАВО: выделяем строки на нажимаем SHIFT+> и ещё несколько раз "."
+"# tabstop              -> Indentation width in spaces
+"# shiftwidth   -> Autoindentation width in spaces
+"# expandtab            -> Use actual spaces instead of tabs
+"# retab                        -> Convert existing tabs to spaces
+set tabstop=4
+set expandtab
+set autoindent
+set smartindent
+set shiftwidth=4
+set cindent
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+" for move text by shift+v ">" OR shift+v "<"
+" set smartindent
+set tabstop=4
+set expandtab
+set shiftwidth=4
+""""
+""""
+
+
+""" перемещать строки вверх вниз alt+up\down:
+nnoremap <A-Up> :m-2<CR>
+inoremap <A-Up> <Esc>:m-2<CR>
+nnoremap <A-Down> :m+<CR>
+inoremap <A-Down> <Esc>:m+<CR>
+""""
+
+
+"""
+" поиск по сову под курсором назад
+nnoremap <c-e> *
+" поиск по сову под курсором вперёд
+nnoremap <c-q> #
+""""
+
+
+""" плавная построчная прокрутка на ctrl e && ctrl w: ВВЕРХ
+nnoremap <S-q> <c-y>
+inoremap <S-q> <c-y>
+""""
+
+
+""" плавная построчная прокрутка на ctrl e && ctrl w: ВНИЗ
+nnoremap <S-e> <c-e>
+inoremap <S-e> <c-e>
+""""
+
+
+""" отключение в режиме редактирования pgup\pgdown по shift+up shift+down
 nnoremap  <S-Up>    <c-y>
 nnoremap  <S-DOwn>  <c-e>
 inoremap  <S-Up>    <c-y>
@@ -286,35 +302,83 @@ snoremap  <S-DOwn>  <c-e>
 vnoremap  <S-Up>    <c-y>
 vnoremap  <S-DOwn>  <c-e>
 noremap   <S-Up>    <c-y>
-noremap   <S-DOwn>  <c-e>
-"""
-" fix cyrillic symbols
-set encoding=utf-8
-"
-"
-" for move text by shift+v ">" OR shift+v "<"
-"set smartindent
-set tabstop=4
-set expandtab
-set shiftwidth=4
-"# tabstop		-> Indentation width in spaces
-"# shiftwidth	-> Autoindentation width in spaces
-"# expandtab		-> Use actual spaces instead of tabs
-"# retab			-> Convert existing tabs to spaces
+noremap   <c-DOwn>  <c-e>
+""""
 
-" Fix fuckin broken insert while using Tmux.
+
+""" плавная прокрутка построчная shift + up\down во всех режимах!
+nnoremap  <c-Up>    <c-y>
+nnoremap  <c-DOwn>  <c-e>
+inoremap  <c-Up>    <c-y>
+inoremap  <c-DOwn>  <c-e>
+snoremap  <c-Up>    <c-y>
+snoremap  <c-DOwn>  <c-e>
+vnoremap  <c-Up>    <c-y>
+vnoremap  <c-DOwn>  <c-e>
+noremap   <c-Up>    <c-y>
+noremap   <c-DOwn>  <c-e>
+""""
+
+
+""" shift+arrow selection
+nmap <S-Up> V<Up>
+nmap <S-Down> V<Down>
+nmap <S-Left> v<Left>
+nmap <S-Right> v<Right>
+vmap <S-Up> <Up>
+vmap <S-Down> <Down>
+vmap <S-Left> <Left>
+vmap <S-Right> <Right>
+""""
+
+
+""" сохранить на ctrl s
+nnoremap <c-s> <esc>:w<enter>
+inoremap <c-s> <esc>:w<enter>
+""""
+
+
+""" рестарт nginx
+nnoremap <c-n> <esc>:w<enter>:!nginx -t && nginx -s reload<enter>
+inoremap <c-n> <esc>:w<enter>:!nginx -t && nginx -s reload<enter>
+""""
+
+
+""" fix cyrillic symbols
+set encoding=utf-8
+""""
+
+
+""" следующий блок будет при открытии документа переносить на старую позицию
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
+""""
+
+
+""" Fix broken insert while using Tmux.
 if &term =~ "screen"
     let &t_BE = "\e[?2004h"
     let &t_BD = "\e[?2004l"
     exec "set t_PS=\e[200~"
     exec "set t_PE=\e[201~"
 endif
+""""
 
-" Disable continuation of comments to the next line in Vim. Сука, слов нет как это бесило. нахер сделано автодобавление комментария с новой строки
-au FileType * set fo-=c fo-=r fo-=o
-"
-" disable continuation of comments to the next line in Vim:
-:set formatoptions-=cro
-autocmd FileType * set formatoptions-=cro
-"
 
+""" Включение подсветки для кастомных файлов
+""" все варанты пожно глянуть тут /usr/share/vim/vim74/syntax/
+" highlight set syntax for php-fpm
+"autocmd BufRead,BufNewFile *.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php/*/fpm/*.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php/*/fpm/pool.d/*.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php-fpm.d/*.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/php-fpm.conf set syntax=dosini
+autocmd BufRead,BufNewFile /etc/nginx/conf.d/kpb.lt.ShortCutter.conf set syntax=dosini
+autocmd BufRead,BufNewFile kpb.lt.ShortCutter.conf set syntax=zsh
+autocmd BufRead,BufNewFile /etc/nginx/conf.d/*.conf set syntax=zsh
+""""
