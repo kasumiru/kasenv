@@ -428,3 +428,10 @@ retab!
 """"
 
 
+""" двигать блоки текста по tab ctrl+tab
+nnoremap <Tab> >_
+nnoremap <C-Tab> <<_
+inoremap <C-Tab> <CD>
+vnoremap <Tab> >gv
+vnoremap <C-Tab> <gv
+""""
