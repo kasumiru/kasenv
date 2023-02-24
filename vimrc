@@ -420,3 +420,11 @@ inoremap <A-S-Down> <Esc> Ypi
 """"
 
 
+""" Исправляет move block вместо табов в пробелы.
+set shiftwidth=4
+set expandtab
+set tabstop=4
+retab!
+""""
+
+
