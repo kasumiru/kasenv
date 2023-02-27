@@ -337,6 +337,29 @@ function venv() { python3 -m venv ${1}; source ${1}/bin/activate; }
 
 # adm.get_free_tcp_port "21-23"
 
+function adm.genpasswd() {
+    if [[ -z $1 ]]; then count=14; else count=$1; fi
+    printf """
+import string
+import random
+characters = list(string.ascii_letters + string.digits)
+random.shuffle(characters)
+password = []
+length = \"${count}\"
+def gen():
+    for i in range(int(length)):
+        password.append(random.choice(characters))
+gen()
+while True:
+    if any(map(lambda xxx: xxx.isdigit(), password)):
+        break
+    else:
+        password = []
+        gen()
+random.shuffle(password)
+print(''.join(password))
+""" | python3
+}
 
 
 
