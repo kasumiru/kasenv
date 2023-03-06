@@ -362,4 +362,32 @@ print(''.join(password))
 }
 
 
+# реализация oathtool под cygwin на Python
+oathtool ()
+{
+    inp=${@}
+    printf """
+params = \"${inp}\"
+import sys
+if params == '':
+    print('Не указан ключ для дешифровки')
+    exit()
+params = params.replace('--base32','')
+params = params.replace('--totp','')
+params = params.replace(' ','')
+try:
+    import pyotp
+except Exception as e:
+    import pip
+    pip.main(['install', 'pyotp'])
+    import pyotp
+totp = pyotp.TOTP(params).now()
+print(totp)
+""" | python3
+}
+# что бы работало и так и так всё будет работать правильно. Ковычки не нужны! (ключи фейковые тут)
+# oathtool 7hW3v4Wk26V43ZQUPJf5TY2SX62VNEYT
+# oathtool --base32 --totp 7hW3v4Wk26V43ZQUPJf5TY2SX62VNEYT
+# oathtool 7hW3 v4Wk 26V4 3ZQU PJf5 TY2S X62V NEYT
+# oathtool --base32 --totp 7hW3 v4Wk 26V4 3ZQU PJf5 TY2S X62V NEYT
 
