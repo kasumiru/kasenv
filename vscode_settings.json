@@ -1,4 +1,16 @@
 {
+    "remote.SSH.showLoginTerminal": true,
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "host-in-ssh-config-or-fqdn": "windows",
+        "proxy.genturu.com": "linux",
+        "test.amazon": "linux",
+        "admin.amazon": "linux"
+    },
+    // "remote.SSH.remotePlatform": "linux",
+    // "remote.SSH.remotePlatform": {
+    //     "proxy": "linux"
+    // },
     "workbench.startupEditor": "newUntitledFile",
     "update.enableWindowsBackgroundUpdates": false,
     "workbench.settings.editor": "json",
@@ -6,7 +18,7 @@
     "editor.wordWrap": "on",
     "update.mode": "none",
     "terminal.integrated.cwd": "PATH=/usr/local/bin:/usr/bin:/usr/sbin/:/sbin/:/opt/bin:/cygdrive/c/Users/root/AppData/Roaming/Python/Python39/Scripts",
-    "editor.autoIndent": false,
+    "editor.autoIndent": "advanced",
     "editor.minimap.enabled": true,
     "breadcrumbs.enabled": true,
     "window.restoreWindows": "none",
@@ -20,14 +32,10 @@
     "workbench.editor.enablePreview": false,
     "window.restoreWindows": "none",
     "files.hotExit": "off",
-    "window.zoomLevel": 0,
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "files.autoSaveDelay": 500,
-    "remote.SSH.remotePlatform": {
-        "proxy": "linux"
-    },
     "editor.fontLigatures": null,
     "explorer.confirmDragAndDrop": false,
     "editor.maxTokenizationLineLength": 900000000,
@@ -75,7 +83,7 @@
     "code-runner.runInTerminal": true,
     "json.maxItemsComputed": 100000,
     // "files.defaultLanguage": "python"
-    "files.defaultLanguage": "properties"
+    "files.defaultLanguage": "properties",
     // SPLIT SPLIT 
     "workbench.startupEditor": "newUntitledFile",
     "workbench.activityBar.visible": false,
@@ -90,8 +98,81 @@
     // "editor.autoClosingQuotes": false,
     "code-runner.executorMap": {
         "python": "python3  ",
+        // "python": "python3 -I ",
     },
     "terminal.integrated.scrollback": 2000000,
     "terminal.integrated.persistentSessionScrollback": 2000000,
     "security.workspace.trust.enabled": false,
+    "script-runner.customShell.enabled": true,
+    // "script-runner.customShell.path": "/bin/sh",
+    "script-runner.customShell.path": "C:\\bash\\bin\\bash.exe",
+    "script-runner.statusBar": true,
+    "script-runner.definitions": {
+        "commands": [
+            {
+                "identifier": "test",
+                "description": "Test Runner 1",
+                "command": "echo $var1 $var2",
+                "working_directory": "$tmp",
+                "form": [
+                    {
+                        "variable": "$var1",
+                        "question": "What is $var1?",
+                        "default": "Test 1"
+                    },
+                    {
+                        "variable": "$var2",
+                        "question": "What is $var2?",
+                        "options": [
+                            "Option 1",
+                            "Option 2",
+                            "Option 3"
+                        ]
+                    }
+                ]
+            },
+            {
+            "identifier": "test2",
+            "description": "Test Runner 2",
+            "command": "echo $var1 ",
+            "working_directory": "$tmp",
+            "form": [
+                {
+                    "variable": "$var1",
+                    "question": "What is $var1?",
+                    "default": "Test 1"
+                }
+            ]
+            },
+            {
+                "identifier": "filepath1",
+                "description": "Filepath",
+                "command": "echo $path ",
+                "working_directory": "$tmp",
+                "form": [
+                    {
+                        "variable": "$path",
+                        "question": "What is the path",
+                        "defaultValuePath": true
+                    }
+                ]
+            }
+        ],
+        "variables": {
+            "$tmp": "./"
+        }
+    },
+    "terminal.integrated.enableMultiLinePasteWarning": false
+    // "empty"
+    // "empty"
+    // "empty"
+    // "vscode_custom_css.imports": [
+    //     "file:///c:\\1\\vscode_style.css"
+    // ],
+    "typescript.tsserver.maxTsServerMemory": 3072,
+    "liveServer.settings.NoBrowser" : true,
+    "liveServer.settings.ignoreFiles": [
+            "*",
+            "**"
+    ] 
 }    
