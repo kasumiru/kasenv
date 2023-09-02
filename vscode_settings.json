@@ -1,178 +1,188 @@
 {
-    "remote.SSH.showLoginTerminal": true,
-    "remote.SSH.useLocalServer": false,
-    "remote.SSH.remotePlatform": {
-        "host-in-ssh-config-or-fqdn": "windows",
-        "proxy.genturu.com": "linux",
-        "test.amazon": "linux",
-        "admin.amazon": "linux"
-    },
-    // "remote.SSH.remotePlatform": "linux",
-    // "remote.SSH.remotePlatform": {
-    //     "proxy": "linux"
-    // },
-    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "Default Dark Modern", // не знаю, что то новенькое от версии 1.80
+    //
+    //
+    //
     "update.enableWindowsBackgroundUpdates": false,
     "workbench.settings.editor": "json",
-    "editor.largeFileOptimizations": false,
-    "editor.wordWrap": "on",
     "update.mode": "none",
-    "terminal.integrated.cwd": "PATH=/usr/local/bin:/usr/bin:/usr/sbin/:/sbin/:/opt/bin:/cygdrive/c/Users/root/AppData/Roaming/Python/Python39/Scripts",
-    "editor.autoIndent": "advanced",
-    "editor.minimap.enabled": true,
     "breadcrumbs.enabled": true,
-    "window.restoreWindows": "none",
-    "files.hotExit": "off",
-    "files.maxMemoryForLargeFilesMB": "4096",
-    "extensions.ignoreRecommendations": true,
-    "files.autoSave": "afterDelay",
+    "extensions.ignoreRecommendations": true, // игнорировать рекоммндации
     "workbench.activityBar.visible": false,
+    "workbench.startupEditor": "newUntitledFile", // открывать не пустое окно, а чистое новое
     "workbench.editor.enablePreviewFromQuickOpen": false,
-    "window.openFilesInNewWindow": "on",
     "workbench.editor.enablePreview": false,
-    "window.restoreWindows": "none",
+    "workbench.editor.showTabs": true, ////////////////
+    // "window.openFilesInNewWindow": "on",
+    // "window.restoreWindows": "none",
+    // "window.title": "${rootPath}${separator}${activeEditorMedium}",
+    // "window.newWindowDimensions": "offset",
+    // "window.titleSeparator": " — ",
+    //
+    //
+    //
     "files.hotExit": "off",
-    "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml"
-    },
     "files.autoSaveDelay": 500,
-    "editor.fontLigatures": null,
-    "explorer.confirmDragAndDrop": false,
-    "editor.maxTokenizationLineLength": 900000000,
+    "files.maxMemoryForLargeFilesMB": "4096",
+    "files.autoSave": "afterDelay",
     "files.autoGuessEncoding": true, // для автоопределения кодировок к примеру 1251 шоб блядь открывалась
+    // "files.defaultLanguage": "python",
+    // "files.defaultLanguage": "properties",
+    "workbench.editor.languageDetection": true,
+    //
+    //
+    //
+    "explorer.confirmDragAndDrop": false,
     "python.pythonPath": "C:\\\\python\\\\python3.exe",
-    "code-runner.executorMap":
-        {
-            "python": "$pythonPath -u $fullFileName",
-            "POTESTIROVAT_ETO": true,
-            "code-runner.preserveFocus": true
-        },
+    //
+    //
+    //
+    "script-runner.customShell.enabled": true,
+    "script-runner.customShell.path": "C:\\bash\\bin\\bash.exe",
+    "script-runner.statusBar": true,
+    // "script-runner.customShell.path": "/bin/sh",
+    //
+    //
+    //
+    "code-runner.executorMap": {
+        "python": "python3  "
+        // "python": "python3 -I ",
+    },
+    // "code-runner.executorMap":
+    //     {
+    //         "python": "$pythonPath -u $fullFileName",
+    //         "POTESTIROVAT_ETO": true,
+    //         "code-runner.preserveFocus": true
+    //     },
     "code-runner.defaultLanguage": "Python",
+    "code-runner.ignoreSelection": true,
     "code-runner.saveAllFilesBeforeRun": true,
-    "code-runner.saveFileBeforeRun": true,
+    "code-runner.saveFileBeforeRun": true, // сохранять файл перед запуском
     "code-runner.fileDirectoryAsCwd": true,
     "code-runner.showExecutionMessage": true,
-    "code-runner.clearPreviousOutput": true,
-    "POTESTIROVAT_ETO": true,
-    "debug.internalConsoleOptions": "neverOpen",
-    "git.defaultCloneDirectory": "C:\\main-2\\txt",
-    "editor.openFolderDefaultPath": "C:\\main-2\\txt",
-    "terminal.integrated.cwd": "C:\\main-2\\txt",
-    "terminal.integrated.automationShell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-    "terminal.external.windowsExec": "C:\\bash\\bin\\bash.exe", // unpack portable GitBash to "c:\bash\"
-    "terminal.integrated.profiles.windows": {
-    "PowerShell": null,
-    "Command Prompt": null,
-      "Git Bash": {
-        "path": "C:\\bash\\bin\\bash.exe",
-        "icon": "terminal-bash"
-      },
-    },
-    // "terminal.integrated.defaultProfile.windows": "GitBash",
+    "code-runner.clearPreviousOutput": false, // удалять предыдуший вывод прошлой команды. советуют false
+    "code-runner.runInTerminal": true,
+    "code-runner.runInOutput": false,
     // "code-runner.executorMapByGlob": {
     //     "pom.xml": "cd $dir && mvn clean package"
     // },
-    "editor.fontFamily": "Consolas, 'Courier New', monospace",
-    "dis_editor.fontFamily": "C:\\main-4\\sys\\fonts\ttf\\CascadiaCode.ttf, C:\\main-4\\sys\\fonts\\ttf\\CascadiaMono.ttf",
-    "editor.fontSize": 14,
-    "editor.fontWeight": null,
-    // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-    // "terminal.integrated.shell.windows": "C:\\cygwin\\bin\\mintty.exe",
+    //
+    //
+    //
+    // "git.defaultCloneDirectory": "C:\\main-4\\txt",
+    //
+    //
+    "terminal.integrated.defaultProfile.windows": "Cygwin", // советуют включить. деволтный профиль скриптов..
+    "terminal.integrated.tabs.enabled": true, // не знаю что то новое
+    // "terminal.integrated.cwd": "c:\\main-4\\py\\", // работает, но уёбищно, только для локального инстанса
+    "terminal.integrated.automationShell.windows": "C:\\bash\\bin\\bash.exe",
+    "terminal.external.windowsExec": "C:\\bash\\bin\\bash.exe",
     "terminal.integrated.shell.windows": "C:\\bash\\bin\\bash.exe",
-    "code-runner.runInTerminal": false,
-    "code-runner.runInTerminal": true,
-    "json.maxItemsComputed": 100000,
-    // "files.defaultLanguage": "python"
-    "files.defaultLanguage": "properties",
-    // SPLIT SPLIT 
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.activityBar.visible": false,
-    "workbench.settings.editor": "json",
-    "editor.wordWrap": "on",
-    "files.hotExit": "off",
-    "files.defaultLanguage": "python",
-    // "files.defaultLanguage": "properties",
-    "editor.autoClosingBrackets": "never",
-    "editor.autoClosingQuotes": "never",
-    // "editor.autoClosingBrackets": false,
-    // "editor.autoClosingQuotes": false,
-    "code-runner.executorMap": {
-        "python": "python3  ",
-        // "python": "python3 -I ",
-    },
     "terminal.integrated.scrollback": 2000000,
     "terminal.integrated.persistentSessionScrollback": 2000000,
-    "security.workspace.trust.enabled": false,
-    "script-runner.customShell.enabled": true,
-    // "script-runner.customShell.path": "/bin/sh",
-    "script-runner.customShell.path": "C:\\bash\\bin\\bash.exe",
-    "script-runner.statusBar": true,
-    "script-runner.definitions": {
-        "commands": [
-            {
-                "identifier": "test",
-                "description": "Test Runner 1",
-                "command": "echo $var1 $var2",
-                "working_directory": "$tmp",
-                "form": [
-                    {
-                        "variable": "$var1",
-                        "question": "What is $var1?",
-                        "default": "Test 1"
-                    },
-                    {
-                        "variable": "$var2",
-                        "question": "What is $var2?",
-                        "options": [
-                            "Option 1",
-                            "Option 2",
-                            "Option 3"
-                        ]
-                    }
-                ]
-            },
-            {
-            "identifier": "test2",
-            "description": "Test Runner 2",
-            "command": "echo $var1 ",
-            "working_directory": "$tmp",
-            "form": [
-                {
-                    "variable": "$var1",
-                    "question": "What is $var1?",
-                    "default": "Test 1"
-                }
-            ]
-            },
-            {
-                "identifier": "filepath1",
-                "description": "Filepath",
-                "command": "echo $path ",
-                "working_directory": "$tmp",
-                "form": [
-                    {
-                        "variable": "$path",
-                        "question": "What is the path",
-                        "defaultValuePath": true
-                    }
-                ]
-            }
-        ],
-        "variables": {
-            "$tmp": "./"
-        }
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": null,
+        "Command Prompt": null,
+        // "Git Bash": {
+        "Cygwin": {
+            "path": "C:\\bash\\bin\\bash.exe",
+            "icon": "terminal-bash"
+        },
     },
-    "terminal.integrated.enableMultiLinePasteWarning": false
-    // "empty"
-    // "empty"
-    // "empty"
-    // "vscode_custom_css.imports": [
-    //     "file:///c:\\1\\vscode_style.css"
-    // ],
+    // "terminal.integrated.cwd": "PATH=/usr/local/bin:/usr/bin:/usr/sbin/:/sbin/:/opt/bin:/cygdrive/c/Users/root/AppData/Roaming/Python/Python39/Scripts",
+    // "terminal.integrated.defaultProfile.windows": "GitBash",
+    // "terminal.integrated.defaultProfile.windows": "GitBash",
+    // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    // "terminal.integrated.shell.windows": "C:\\cygwin\\bin\\mintty.exe",
+    //
+    //
+    //
+    "editor.largeFileOptimizations": false,
+    "editor.wordWrap": "on",
+    "editor.autoIndent": "advanced",
+    "editor.minimap.enabled": true,
+    "editor.fontLigatures": null,
+    "editor.maxTokenizationLineLength": 900000000,
+    "editor.openFolderDefaultPath": ".",
+    "editor.wordWrap": "on",
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.snippetSuggestions": "top", // хз что но советуют там же где когфиг code-runner был
+    "editor.suggest.snippetsPreventQuickSuggestions": false, /// ТЕСТОВОЕ не знаю что это!!
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.fontFamily": "Consolas, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "editor.fontWeight": null,
+    // "editor.snippetSuggestions": "none", 
+    // "editor.autoClosingBrackets": false,
+    // "editor.autoClosingQuotes": false,
+    //
+    //
+    //
+    "json.maxItemsComputed": 100000,
+    "security.workspace.trust.enabled": false,
+    //
+    //
+    //
+    // "console": "internalConsole", 
+    "debug.internalConsoleOptions": "neverOpen", // что то важное ) 
+    "POTESTIROVAT_ETO": true,
     "typescript.tsserver.maxTsServerMemory": 3072,
     "liveServer.settings.NoBrowser" : true,
     "liveServer.settings.ignoreFiles": [
             "*",
             "**"
-    ] 
+    ],
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "*.json"
+                // "*.model.json"
+            ],
+            "url": "file:/Users/frontaid/Documents/frontaid-schema.json",
+        }
+    ],
+    "[yaml]": {
+    },
+    "dis_editor.fontFamily": "C:\\main-4\\sys\\fonts\ttf\\CascadiaCode.ttf, C:\\main-4\\sys\\fonts\\ttf\\CascadiaMono.ttf",
+    "remote.SSH.useLocalServer": false,
+    // "remote.SSH.remotePlatform": 
+    // "remote.SSH.remotePlatform": 
+    // "remote.SSH.remotePlatform": 
+    // "remote.SSH.remotePlatform": 
+    // "remote.SSH.remotePlatform": 
+    // "remote.SSH.remotePlatform": 
+    "remote.SSH.remotePlatform": {
+        "host-in-ssh-config-or-fqdn": "windows",
+        "proxy.genturu.com": "linux",
+        "test.amazon": "linux",
+        "admin.amazon": "linux",
+        "office-bot.amazon": "linux",
+        "awsmanager.amazon": "linux",
+        "genturu.com": "linux"
+    },
+    "remote.SSH.enableRemoteCommand": true, // вроде что то интересное, не уверен.
+    // "remote.SSH.showLoginTerminal": false, // вроде как раскрывать терминал при каждом новом подключении - ПС - хуй там, открывается при таком вот. пробую true
+    "remote.SSH.showLoginTerminal": true, // вроде как раскрывать терминал при каждом новом подключении - ПС - хуй там, открывается при таком вот. пробую true
+    // "remote.SSH.path": "/opt/scripts/", // РУГАЕТСЯ НА ОШИБКУ
+    // "remote.SSH.serverInstallPath": {
+    //     "office-bot.amazon": "/opt/",
+    //     "office-bot": "/opt/"
+    // },
+    // "remote.SSH.configFile": "C:\\Users\\root\\.ssh\\config",
+    // "remote.SSH.office-bot.amazon.serverInstallPath": "/opt/",
+    // "remote.SSH.office-bot.serverInstallPath": "/opt/",
+    //
+    //
+    //
+    "security.allowedUNCHosts": [
+        "10.12.0.2",
+        "localhost",
+        "10.12.0.2$",
+        "hw.hg"
+    ],
+    "editor.multiCursorLimit": 30000,
+    "workbench.editor.untitled.hint": "hidden" // лимит когда нажимаешь ctrl shift l что бы выделились все похожие
 }    
