@@ -1,6 +1,34 @@
 // Place your key bindings in this file to override the defaults
 [
     {
+    "key": "ctrl+shift+q",
+    "command": "git.openFile",
+    "when": "editorFocus && isInDiffEditor"
+    },
+    {
+        "key": "ctrl+shift+q",
+        "command": "git.openChange",
+        "when": "editorFocus && !isInDiffEditor"
+    },
+    {
+        "key": "alt+x", // хоткей для быстрого открытия папок (explorer)
+        "command": "workbench.view.explorer"
+    },
+    {
+        "key": "alt+x", // хоткей для быстрого открытия папок (explorer)
+        "command": "-workbench.view.explorer"
+    },
+    {
+        "key": "alt+x", // хоткей для быстрого открытия папок (explorer)
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "explorerViewletVisible"
+    },
+    {
+        "key": "alt+x", // хоткей для быстрого открытия папок (explorer)
+        "command": "-workbench.action.toggleSidebarVisibility",
+        "when": "explorerViewletVisible"
+    },
+    {
         "key": "ctrl+shift+e",
         "command": "-workbench.view.explorer"
     },
@@ -19,9 +47,13 @@
     },
     {
         "key": "ctrl+alt+m",
-        "command": "workbench.action.toggleMaximizedPanel",
-        "when": "!terminalFocus" 
+        "command": "workbench.action.toggleMaximizedPanel" // новвый вариант, так мне нравится даже больше, без триггера.
     },
+    // {
+    //     "key": "ctrl+alt+m",
+    //     "command": "workbench.action.toggleMaximizedPanel",
+    //     "when": "!terminalFocus" // старый вариант, ща попробую с отключённым этим триггером
+    // },
     {
         "key": "ctrl+q",
         "command": "editor.action.previousSelectionMatchFindAction",
@@ -35,10 +67,6 @@
     {
         "key": "ctrl+shift+b",
         "command": "-workbench.action.tasks.build"
-    },
-    {
-        "key": "ctrl+shift+b",
-        "command": "workbench.action.toggleSidebarVisibility"
     },
     {
         "key": "ctrl+b",
@@ -89,5 +117,119 @@
         "key": "ctrl+a", 
         "command": "workbench.action.terminal.selectAll",
         "when": "terminalFocus" 
+    },
+    // {
+    //     "key": "ctrl+k ctrl+s",
+    //     "command": "workbench.action.inspectKeyMappingsJSON"
+    // },
+    // {
+    //     "key": "ctrl+k ctrl+r",
+    //     "command": "-workbench.action.keybindingsReference"
+    // },
+    // {
+    //     "key": "ctrl+k ctrl+s",
+    //     "command": "-workbench.action.openGlobalKeybindings"
+    // },
+    {
+        "key": "ctrl+k ctrl+s",
+        "command": "workbench.action.openGlobalKeybindingsFile"
+    },
+    // {
+    //     "key": "ctrl+,",
+    //     "command": "workbench.action.openSettings" // и это открыть конфиг в виде json - установить, если хочется сменить на другую комбинацию, по умолчанию можно вообще это закомментить, так как по умолчанию включается этот хоткей дефолтными настройками.
+    // },
+    // {
+    //     "key": "alt+,",
+    //     "command": "workbench.action.openApplicationSettingsJson" // и это открыть конфиг в виде json - установить, если хочется сменить на другую комбинацию, по умолчанию можно вообще это закомментить, так как по умолчанию включается этот хоткей дефолтными настройками.
+    // },
+    {
+        "key": "ctrl+,", 
+        "command": "workbench.action.openSettingsJson" // и это открыть конфиг в виде json - установить, если хочется сменить на другую комбинацию
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-editor.action.quickFix", // отключить хоткей старый дефольный
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-workbench.action.terminal.quickFix", // отключить хоткей старый дефольный
+        "when": "terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-acceptSelectedCodeAction", // отключить хоткей старый дефольный
+        "when": "codeActionMenuVisible"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-problems.action.showQuickFixes", // отключить хоткей старый дефольный
+        "when": "problemFocus"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "workbench.action.openSettings2" // открыть конфиг в виде UI
+    },
+    {
+        "key": "ctrl+k ctrl+a",
+        "command": "workbench.action.openGlobalKeybindings" // открыть хоткеи в UI
+    },
+    {
+        "key": "alt+d",
+        "command": "workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "alt+a",
+        "command": "opensshremotes.openEmptyWindowInCurrentWindow" // хоткей для быстрого подключения к ssh
+    },
+    // {
+    //     "key": "ctrl+k ctrl+s",
+    //     "command": "-workbench.action.openGlobalKeybindings" // отключить хоткей старый дефольный
+    // },
+    // {
+    //     "key": "ctrl+k ctrl+a",
+    //     "command": "-keybindings.editor.addKeybinding",
+    //     "when": "inKeybindings && keybindingFocus"
+    // },
+    {
+        "key": "alt+s",
+        "command": "workbench.action.files.openFolder",
+        "when": "openFolderWorkspaceSupport"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.view.extensions",
+        "when": "viewContainer.workbench.view.extensions.enabled"
+    },
+    {
+        "key": "ctrl+shift+x",
+        "command": "-workbench.view.extensions",
+        "when": "viewContainer.workbench.view.extensions.enabled"
+    },
+    {
+        "key": "ctrl+u",
+        "command": "-cursorUndo",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+u",
+        "command": "-editor.detectLanguage",
+        "when": "editorTextFocus && !notebookEditable"
+    },
+    {
+        "key": "ctrl+alt+j",
+        "command": "-code-runner.runByLanguage"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-code-runner.runCustomCommand"
     }
 ]
