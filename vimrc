@@ -4,6 +4,9 @@
 syntax on
 """"
 
+" ===== LOCALE SETTINGS =====
+set encoding=utf-8
+
 
 """ Установка цветовой схемы
 color darkblue
@@ -165,6 +168,12 @@ hi NonText ctermfg=7 guifg=gray
 """ назначить на "\l" - Показать невидимые символы
 """ bind "\l" to show ALL hidden symbols
 nmap <leader>l :set list!<CR>
+""""
+
+""" назначить на "ctrl + l" - Показать невидимые символы
+""" bind "ctrl + l" to show ALL hidden symbols
+nnoremap <c-l> <esc>:set list!<CR>
+inoremap <c-l> <esc>:set list!<CR>
 """"
 
 
