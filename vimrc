@@ -165,7 +165,7 @@ endif
 
 
 """ Сменить символу переноса строки цвет:
-hi NonText ctermfg=7 guifg=gray
+hi NonText ctermfg=8 guifg=gray
 """"
 
 
