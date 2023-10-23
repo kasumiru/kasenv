@@ -1,16 +1,18 @@
-" vim Kasumiru config 2023.02.23
+" vim Kasumiru config 2023.10.23
 
 """ Включение подсветки:
 syntax on
 """"
 
-" ===== LOCALE SETTINGS =====
+""" ===== LOCALE SETTINGS =====
 set encoding=utf-8
+""""
+
 
 
 """ Установка цветовой схемы
 color darkblue
-"""
+""""
 
 
 """ fix vim shit mouse selected.
@@ -103,8 +105,10 @@ map <F8> :emenu Exec.<Tab>
 nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 " Run in python:
-nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
-inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+" nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+" inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
+inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 " Run in Windows python:
 "nnoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
 "inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
@@ -184,7 +188,7 @@ highlight SpecialKey guifg=#4a4a29
 """"
 
 
-""" Переназначить клавиду Ladder:
+""" Переназначить клавишу Ladder:
 """ Обычно <leader> назначена клавиша \, но её можно изменить с помощь команды: let mapleader = "ваша_клавиша"
 "let mapleader = "ваша_клавиша"
 """"
@@ -362,8 +366,10 @@ autocmd BufReadPost *
 
 """ Fix broken insert while using Tmux.
 if &term =~ "screen"
-    let &t_BE = "\e[?2004h"
-    let &t_BD = "\e[?2004l"
+    " Фиг его знает как лучше. нужно тестить. я не помню на каком сервере были ошибки
+    " Следующие две строчки можно раскоммнтировать или закомментировать. 
+    "let &t_BE = "\e[?2004h"
+    "let &t_BD = "\e[?2004l"
     exec "set t_PS=\e[200~"
     exec "set t_PE=\e[201~"
 endif
@@ -381,7 +387,86 @@ autocmd BufRead,BufNewFile /etc/php-fpm.conf set syntax=dosini
 autocmd BufRead,BufNewFile /etc/nginx/conf.d/kpb.lt.ShortCutter.conf set syntax=dosini
 autocmd BufRead,BufNewFile kpb.lt.ShortCutter.conf set syntax=zsh
 autocmd BufRead,BufNewFile /etc/nginx/conf.d/*.conf set syntax=zsh
+autocmd BufRead,BufNewFile /opt/scripts/domains.txt set syntax=zsh
+autocmd BufRead,BufNewFile *.ini setl filetype=ini_files_type syntax=dosini
 """"
+
+
+""" Закомментировать\раскомментировать строчку, либо выдленный блок текста по "cc" и по ctrl+m
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType arduino          let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType zsh              let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType matlab,tex       let b:comment_leader = '% '
+autocmd FileType vim              let b:comment_leader = '" '
+autocmd FileType ini_files_type   let b:comment_leader = '; '
+
+""
+""" Старый вариант комментирования\раскомментирования:
+" в этом вариане всегда комментирование происходит УЧИТЫВАЯ отступы.
+""
+" function! CommentToggle()
+"     execute ':silent! s/\([^ ]\)/' . escape(b:comment_leader,'\/') . ' \1/'
+"     execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . ' \?/\1/'
+" endfunction
+" noremap   <silent> cc         :call CommentToggle()<CR>
+" noremap   <silent> <c-m>      :call CommentToggle()<CR>
+""""
+
+""
+""" Новый вариант комментирования\раскомментирования:
+" внизу написаны два варианта комментирования:
+" 1: в этом случае закомменчено будет начиная с начала строки, не смотря на отступ. строка 453
+" 2: в этом случае закомменчено будет рядом включая отступ. строка 455
+""
+function! ToggleComment() range
+    "Ensure we know the comment leader.
+    if !exists('b:comment_leader')
+        echo "Unknown comment leader."
+        return
+    endif
+    "Save the initial cursor position, to restore later.
+    let l:inipos = getpos('.')
+    "Make a list of all of the line numbers in the range which are already commented.
+    let l:commented_lines = []
+    for i in range(a:firstline, a:lastline)
+        if getline(i) =~ '^\s*' . b:comment_leader
+            let l:commented_lines = add(l:commented_lines, i)
+        endif
+    endfor
+    " If every line in the range is commented, set the action to uncomment.
+    " Otherwise, set it to comment.
+    let l:i1 = index(l:commented_lines, a:firstline)
+    let l:i2 = index(l:commented_lines, a:lastline)
+    if l:i1 >= 0 && l:i2 >= 0 && (l:i2 - l:i1) == (a:lastline - a:firstline)
+        let l:action = "uncomment"
+    else
+        let l:action = "comment"
+    endif
+    " Loop through the range, commenting or uncommenting based on l:action.
+    for i in range(a:firstline, a:lastline)
+        " Move to line i.
+        exec "exe " . i
+        " Perform the action.
+        if l:action == "comment"
+            " в этом случае закомменчено будет начиная с начала строки, не смотря на отступ.
+            exec 'normal! 0i' . b:comment_leader
+            " в этом случае закомменчено будет рядом включая отступ
+            " exec 'normal! 1i' . b:comment_leader
+        else
+            execute 'silent s,' . b:comment_leader . ',,'
+        endif
+    endfor
+    " Restore the initial position.
+    call setpos('.', l:inipos)
+endfunction
+
+"noremap   <Leader>k           :call ToggleComment()<CR>
+noremap   <silent> cc         :call ToggleComment()<CR>
+noremap   <silent> <c-m>      :call ToggleComment()<CR>
+""""
+
 
 
 """ Исправляет вставку лесенкой fix ladder paste:
@@ -391,21 +476,6 @@ set noautoindent
 """"
 
 
-""" Закомментировать\раскомментировать строчку, либо выдленный блок текста по "cc" и по ctrl+m
-autocmd FileType c,cpp,java,scala let b:comment_leader = '//'
-autocmd FileType arduino          let b:comment_leader = '//'
-autocmd FileType sh,ruby,python   let b:comment_leader = '#'
-autocmd FileType zsh              let b:comment_leader = '#'
-autocmd FileType conf,fstab       let b:comment_leader = '#'
-autocmd FileType matlab,tex       let b:comment_leader = '%'
-autocmd FileType vim              let b:comment_leader = '"'
-function! CommentToggle()
-    execute ':silent! s/\([^ ]\)/' . escape(b:comment_leader,'\/') . ' \1/'
-    execute ':silent! s/^\( *\)' . escape(b:comment_leader,'\/') . ' \?' . escape(b:comment_leader,'\/') . ' \?/\1/'
-endfunction
-noremap   <silent> cc      :call CommentToggle()<CR>
-noremap   <silent> <c-m>      :call CommentToggle()<CR>
-""""
 
 """ Выделение текста по shift+up shift+down прямо без перехода в режим визуализации
 """ shift+arrow selection
