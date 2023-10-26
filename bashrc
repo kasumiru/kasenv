@@ -2,14 +2,52 @@
 
 PATH="$PATH:/usr/sbin"
 
-HISTTIMEFORMAT="%F %T: "
+# HISTTIMEFORMAT="%F %T: "
+export HISTTIMEFORMAT='%d.%m.%Y %H:%M:%S: '
+HISTTIMEFORMAT='%d.%m.%Y %H:%M:%S: '
+
 HISTSIZE=30000
 HISTFILESIZE=30000
+export HISTFILESIZE=300000
+export HISTSIZE=300000
+
 shopt -s histappend
+
+
+# Опция HISTCONTROL контролирует каким образом список команд сохраняется в истории.
+# ignorespace — не сохранять строки начинающиеся с символа <пробел>
+# ignoredups — не сохранять строки, совпадающие с последней выполненной командой
+# ignoreboth — использовать обе опции ‘ignorespace’ и ‘ignoredups’
+# erasedups — удалять ВСЕ дубликаты команд с истории
+export HISTCONTROL=ignoredups:erasedups
+HISTCONTROL=ignoredups:erasedups
+
+# Давайте не будем сохранять в истории команды ls, ps и history с доп. опциями. Для этого в файл ~/.bashrc добавим строку:
+#export HISTIGNORE='ls:ps:history*'
+# export HISTIGNORE='history*'
+# HISTIGNORE='ls:ps:history*'
+# HISTIGNORE='history*'
+
+### immediately bash history
+shopt -s histappend
+####
+
+###
+function PROMPT_function {
+    # echo -ne "\033]0;${PWD##*/}\007"
+    # отображение в заголовке пути к папке:
+    echo -ne "\033]0; ${PWD}\007"
+}
+# export PROMPT_COMMAND="my_function;$PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a;printf '\e]0;bash\7'"
+export PROMPT_COMMAND="$PROMPT_COMMAND;PROMPT_function"
+####
+
+
 stty -ixon              # для отключения ctrl s - frozen console. отключает фризы bash shell по нажатию ctrl+s и ctrl+q т.е.: Исторически C-s и C-q использовались для передачи управляющих кодов XOFF и XON между двумя системами. В системе на базе терминала эти управляющие коды используются для приостановки процессов, передающих данные на терминал. ссылка к примеру тут https://translated.turbopages.org/proxy_u/en-ru.ru.37b29021-63ef70f6-a27d8d9f-74722d776562/https/www.baeldung.com/linux/change-incremental-searching-direction-shell
 export SYSTEMD_PAGER='' ##Отключение прокрутки в systemctl status прокрутки
-echo -ne "\e]0;root@$HOSTNAME.hg\a"
-
+# echo -ne "\e]0;root@$HOSTNAME.hg\a"
+echo -ne "\e]0;root@${HOSTNAME}.hg\a"
 
 shopt -s  autocd  # Если имя вводимой команды является именем каталога, то осуществляется переход в этот каталог, как будто была введена команда cd имя_каталога.
 shopt -s  cdspell # Незначительные ошибки в написании каталога команды cd будут исправляться: поменянные местами соседние символы, пропущенные, удвоенные символы. Если исправленный путь обнаружен - он будет выведен на экран, и будет выполнена команда cd. Работает только в интерактивном режиме.
@@ -23,7 +61,8 @@ alias dnsrestart='vim /etc/dnsmasq@eno1.conf && systemctl restart dnsmasq@eno1.s
 #alias dns="vim /etc/bind/db.hg; systemctl restart bind9; systemctl status bind9"
 #alias ll="ls -lhAF --color"
 #alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d.%H.%M" --color'
-alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d %H:%M" --color'
+# alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d %H:%M" --color'
+alias ll='ls -lhAF --color=auto --time-style="+%Y.%m.%d %H:%M.%S" --color'
 alias l="ls -lnF --color"
 alias docker_rmold='docker rm $(docker ps -q -f status=exited)'
 
@@ -66,7 +105,7 @@ function ppid() {
         str=`ps -eo pid,ppid,user,%cpu,pmem,vsz,rss,etimes,command | grep -v "\[" | grep  -E "(^|^ |^  |^   |^    )$1 "`
         gp_pid=`echo $str | awk '{print $2}'`
         if [[ `echo $gp_pid | grep  -o '[[:digit:]]*' | wc -l` -ne 1 ]]; then
-            exit 0
+            return
         fi
         #echo "parrent pid of $1 = $gp_pid"
     }
@@ -172,7 +211,7 @@ function sf(){
 #PS4=' $(date +\%D.\%T.\%-3N)::`basename $0` [$LINENO]: '
 PS4='$(date +\%Y.\%m.\%d.\%H\:%M.\%-3N): [$LINENO]: '
 #function vim() { if [[ -z ${2} ]]; then $(which vim) $1; else echo "STOP VIM"; fi; }
-function vim() { if [[ -z ${2} ]]; then $(which vim) "${1}"; else echo "STOP VIM"; fi; }                                                                               
+function vim() { if [[ -z ${2} ]]; then $(which vim) "${1}"; else echo "STOP VIM"; fi; }                                                                             
 
 if [[ -f ~/.bashrc.kas.linux.custom ]]; then source ~/.bashrc.kas.linux.custom; fi
 
@@ -407,4 +446,3 @@ print(totp)
 # oathtool --base32 --totp 7hW3v4Wk26V43ZQUPJf5TY2SX62VNEYT
 # oathtool 7hW3 v4Wk 26V4 3ZQU PJf5 TY2S X62V NEYT
 # oathtool --base32 --totp 7hW3 v4Wk 26V4 3ZQU PJf5 TY2S X62V NEYT
-
