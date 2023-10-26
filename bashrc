@@ -230,24 +230,36 @@ function btop() { /bin/btop_pre --utf-force; } # from wget https://github.com/ar
 ##         builtin cd "$@"
 ##     fi
 ## }
+
+
+
 function cd() {
-    # если мы пытаемся перейти на файл.. cd /srv/config.conf ... 
-    if [[ -f "$1" ]]; then
+    # BASH CD bash cd моя функция cd для bash:
+    if [[ -L "${1}" ]]; then
+        # если прошлый файл был симлинкой
+        real_filename=`readlink -f "${1}"`
+        echo "cd $(dirname $real_filename)"
+        builtin cd $(dirname "$real_filename")
+        return
+    elif [[ -f "${1}" ]]; then
+        # если мы пытаемся перейти на файл.. cd /srv/config.conf ...
         echo "cd $(dirname $1)"
         builtin cd $(dirname "$1")
         return
     fi
-    
+
     # если было просто написано cd без аргументов:
     if [[ ! -n "${1}" ]]; then
         # ищем в истории аргумент ПРОШЛОЙ команды, не текущй:
         lastdir=`tail -n1 ~/.bash_history | tr -s " " | cut -d " " -f 2`
 
+
         # если последнй аргумент ПРОШЛОЙ команды был файлом то:
         # переходим в папку, в которой лежит этот файл:
         if [[ -f "${lastdir}" ]]; then
             echo "cd $(dirname $lastdir)"
-            cd $(dirname "$lastdir")
+            builtin cd $(dirname "$lastdir")
+            return
 
         # если последнй аргумент ПРОШЛОЙ команды был папкой то:
         else
@@ -255,17 +267,22 @@ function cd() {
             # (к примеру: сделали сначала ls -l xxx. а потом cd и он перешёл на xxx)
             if [[ -d "${lastdir}" ]]; then
                 echo "cd ${lastdir}"
-                cd ${lastdir}
+                builtin cd ${lastdir}
+                return
             else
                 echo "dir is not exist"
             fi
         fi
-        
+
     # если cd было написано с аргументами и аргумент папка (выяснили выше) переходи туда:
     else
         builtin cd "$@"
+        return
     fi
+    # example: cd /cygdrive/c/main-4/sys/links/chrome_clear_user_data_dir-googlechrome.bat
 }
+
+
 
 function w2ip() { whois `curl -s 2ip.ru` | grep 'role\|descr\|remarks\|address\|netname'; }
 
