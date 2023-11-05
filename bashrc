@@ -446,3 +446,22 @@ print(totp)
 # oathtool --base32 --totp 7hW3v4Wk26V43ZQUPJf5TY2SX62VNEYT
 # oathtool 7hW3 v4Wk 26V4 3ZQU PJf5 TY2S X62V NEYT
 # oathtool --base32 --totp 7hW3 v4Wk 26V4 3ZQU PJf5 TY2S X62V NEYT
+
+
+# функция для удобного отображения локального адреса сервера
+function ipa() {
+    network=$(ip r  | grep default | tr -s " " | cut -f 3 -d " ")
+    if [[ $(echo $network | grep "^10.\|^192." | wc -l) -eq 0 ]]; then
+        # правило сработает, если в дефолтном роуте нет подсетей 10... 192...
+        network=$(ip r  | grep -v default | head -n1 | tr -s " " | cut -f 1 -d " ")
+    fi
+    net=$(echo $network | cut -f 1-2 -d ".")
+    addr=$(echo $(echo `hostname -I` | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" | grep "${net}") | tr -d " " | tr -d \"\n\")
+    addr=$(echo $addr | sed 's/172.17.0.1//g' | sed 's/ 172.17.0.1//g')
+    printf "${addr}\n"
+
+}
+function ipaf() {
+    addr=$(ipa)
+    printf "${addr}\n${addr}/32\n"
+}
