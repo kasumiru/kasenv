@@ -38,6 +38,18 @@
         "when": "inFilesPicker && inQuickOpen"
     },
     {
+        "key": "ctrl+alt+j",
+        "command": "-code-runner.runByLanguage"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-code-runner.runCustomCommand"
+    },
+    {
+        "key": "ctrl+alt+n",
+        "command": "-code-runner.run"
+    },
+    {
         "key": "ctrl+shift+e",
         "command": "code-runner.run"
     },
@@ -73,10 +85,6 @@
         "command": "-workbench.action.toggleSidebarVisibility"
     },
     {
-        "key": "ctrl+alt+n",
-        "command": "-code-runner.run"
-    },
-    {
         "key": "ctrl+shift+d",
         "command": "editor.action.deleteLines",
         "when": "textInputFocus && !editorReadonly"
@@ -98,11 +106,11 @@
     },
     {
         "key": "ctrl+j",
-        "command": "-workbench.action.togglePanel"
+        "command": "-workbench.action.togglePanel" // отключить для хоткея: объединить в одну линию
     },
     {
         "key": "ctrl+j",
-        "command": "editor.action.joinLines"
+        "command": "editor.action.joinLines" // объединить в одну линию
     },
     {
        "key": "ctrl+tab",
@@ -132,7 +140,7 @@
     // },
     {
         "key": "ctrl+k ctrl+s",
-        "command": "workbench.action.openGlobalKeybindingsFile"
+        "command": "workbench.action.openGlobalKeybindingsFile"// хоткей для открытия хоткеев
     },
     // {
     //     "key": "ctrl+,",
@@ -148,13 +156,13 @@
     },
     {
         "key": "ctrl+.",
-        "command": "-editor.action.quickFix", // отключить хоткей старый дефольный
-        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+        "command": "-workbench.action.terminal.quickFix", // отключить хоткей старый дефольный
+        "when": "terminalFocus && terminalProcessSupported"
     },
     {
         "key": "ctrl+.",
-        "command": "-workbench.action.terminal.quickFix", // отключить хоткей старый дефольный
-        "when": "terminalFocus && terminalProcessSupported"
+        "command": "-editor.action.quickFix", // отключить хоткей старый дефольный
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
     },
     {
         "key": "ctrl+.",
@@ -176,15 +184,15 @@
     },
     {
         "key": "alt+d",
-        "command": "workbench.action.files.newUntitledFile"
-    },
-    {
-        "key": "ctrl+n",
-        "command": "workbench.action.files.newUntitledFile"
+        "command": "workbench.action.files.newUntitledFile" 
     },
     {
         "key": "ctrl+n",
         "command": "-workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.files.newUntitledFile"
     },
     {
         "key": "alt+a",
@@ -225,11 +233,40 @@
         "when": "editorTextFocus && !notebookEditable"
     },
     {
-        "key": "ctrl+alt+j",
-        "command": "-code-runner.runByLanguage"
+        "key": "ctrl+shift+m",
+        "command": "editor.action.toggleMinimap" // открыть minimap хоткеем
+    },
+        {
+        "key": "ctrl+l",
+        "command": "-expandLineSelection",
+        "when": "textInputFocus"
     },
     {
-        "key": "ctrl+alt+k",
-        "command": "-code-runner.runCustomCommand"
-    }
+        "key": "ctrl+l",
+        "command": "-notebook.centerActiveCell",
+        "when": "notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "-workbench.action.chat.clear",
+        "when": "hasChatProvider && inChat"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "editor.action.toggleRenderWhitespace" // показать пробелы 
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-editor.action.toggleTabFocusMode" // отключить хоткей для: выбор синтаксиса подсветки
+    },
+    {
+        "key": "ctrl+k m",
+        "command": "-workbench.action.editor.changeLanguageMode", // отключить хоткей для: выбор синтаксиса подсветки
+        "when": "!notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "workbench.action.editor.changeLanguageMode", // выбор синтаксиса подсветки
+        "when": "!notebookEditorFocused"
+    },
 ]
