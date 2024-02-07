@@ -7,12 +7,11 @@
     "workbench.settings.editor": "json",
     "update.mode": "none",
     "breadcrumbs.enabled": true,
-    "extensions.ignoreRecommendations": true, // игнорировать рекоммндации
-    "workbench.activityBar.visible": false,
+    "extensions.ignoreRecommendations": true,
     "workbench.startupEditor": "newUntitledFile", // открывать не пустое окно, а чистое новое
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.editor.enablePreview": false,
-    "workbench.editor.showTabs": true, ////////////////
+    "workbench.editor.showTabs": "multiple", ////////////////
     // "window.openFilesInNewWindow": "on",
     // "window.restoreWindows": "none",
     // "window.title": "${rootPath}${separator}${activeEditorMedium}",
@@ -101,7 +100,6 @@
     "editor.largeFileOptimizations": false,
     "editor.wordWrap": "on",
     "editor.autoIndent": "advanced",
-    "editor.minimap.enabled": true,
     "editor.fontLigatures": null,
     "editor.maxTokenizationLineLength": 900000000,
     "editor.openFolderDefaultPath": ".",
@@ -161,10 +159,12 @@
         "admin.amazon": "linux",
         "office-bot.amazon": "linux",
         "awsmanager.amazon": "linux",
-        "genturu.com": "linux"
+        "genturu.com": "linux",
+        "admin.office": "linux"
     },
     "remote.SSH.enableRemoteCommand": true, // вроде что то интересное, не уверен.
     // "remote.SSH.showLoginTerminal": false, // вроде как раскрывать терминал при каждом новом подключении - ПС - хуй там, открывается при таком вот. пробую true
+    // "remote.SSH.configFile": "C:/Users/root/.ssh/config-vscode"
     "remote.SSH.showLoginTerminal": true, // вроде как раскрывать терминал при каждом новом подключении - ПС - хуй там, открывается при таком вот. пробую true
     // "remote.SSH.path": "/opt/scripts/", // РУГАЕТСЯ НА ОШИБКУ
     // "remote.SSH.serverInstallPath": {
@@ -184,5 +184,17 @@
         "hw.hg"
     ],
     "editor.multiCursorLimit": 30000,
-    "workbench.editor.untitled.hint": "hidden" // лимит когда нажимаешь ctrl shift l что бы выделились все похожие
+    "workbench.activityBar.location": "hidden",
+    "workbench.editor.empty.hint": "hidden",
+    "window.commandCenter": false,
+    "git.openRepositoryInParentFolders": "never",
+    "files.associations": {
+        "*.ahk": "clojure"
+    }, // включение подсветки для определённого типа файлов
+    "explorer.sortOrder": "modified",
+    "kasumiru-non-exist-key-just-for-comment": "none",
+    "editor.renderWhitespace": "all",
+    // "remote.SSH.serverInstallPath": { // это вот работает, да. но только дефолтную папку всё равно ставит /home/username
+    //     "test.amazon": "/opt/scripts/"
+    // },
 }    
