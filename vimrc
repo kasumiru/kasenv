@@ -515,3 +515,19 @@ inoremap <C-Tab> <CD>
 vnoremap <Tab> >gv
 vnoremap <C-Tab> <gv
 """"
+
+""" запуск текущей строчки, на которой находится курсор в интерпретаторе bash
+function! ExecuteCurrentLineInBash()
+    let current_line = getline('.')
+    execute ":w !source ~/.bashrc 2>/dev/null && /usr/bin/run_from_vim " . shellescape(current_line) . " 2>&1 | grep -v stty"
+endfunction
+
+function! ExecuteSelectedLinesInBash()
+    let selected_lines = getline("'<", "'>")
+    execute ":w !source ~/.bashrc 2>/dev/null && /usr/bin/run_from_vim " . shellescape(join(selected_lines, "\n")) . " 2>&1 | grep -v stty"
+endfunction
+
+nnoremap <C-f> :call ExecuteCurrentLineInBash()<CR>
+vnoremap <C-f> :call ExecuteSelectedLinesInBash()<CR>
+""""
+
