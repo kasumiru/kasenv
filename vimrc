@@ -394,7 +394,7 @@ autocmd BufRead,BufNewFile *.ini setl filetype=ini_files_type syntax=dosini
 
 """ Закомментировать\раскомментировать строчку, либо выдленный блок текста по "cc" и по ctrl+m
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-autocmd FileType arduino          let b:comment_leader = '// '
+autocmd FileType arduino,php      let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
 autocmd FileType zsh              let b:comment_leader = '# '
 autocmd FileType conf,fstab       let b:comment_leader = '# '
