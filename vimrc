@@ -389,6 +389,13 @@ autocmd BufRead,BufNewFile kpb.lt.ShortCutter.conf set syntax=zsh
 autocmd BufRead,BufNewFile /etc/nginx/conf.d/*.conf set syntax=zsh
 autocmd BufRead,BufNewFile /opt/scripts/domains.txt set syntax=zsh
 autocmd BufRead,BufNewFile *.ini setl filetype=ini_files_type syntax=dosini
+autocmd BufRead,BufNewFile /bin/b.cmd set syntax=zsh
+autocmd BufRead,BufNewFile /bin/b.rsynct set syntax=zsh
+autocmd BufRead,BufNewFile /root/.bashrc.kas.s set syntax=zsh
+"autocmd BufRead,BufNewFile *.log set syntax=zsh
+autocmd BufRead,BufNewFile *.log setl filetype=log_files_type syntax=slate
+autocmd BufRead,BufNewFile *.yml setl filetype=yml_files_type syntax=slate
+autocmd BufRead,BufNewFile *.yaml setl filetype=yml_files_type syntax=slate
 """"
 
 
@@ -402,6 +409,9 @@ autocmd FileType yaml             let b:comment_leader = '# '
 autocmd FileType matlab,tex       let b:comment_leader = '% '
 autocmd FileType vim              let b:comment_leader = '" '
 autocmd FileType ini_files_type   let b:comment_leader = '; '
+autocmd FileType log_files_type   let b:comment_leader = '# '
+autocmd FileType yml_files_type   let b:comment_leader = '# '
+""""
 
 ""
 """ Старый вариант комментирования\раскомментирования:
