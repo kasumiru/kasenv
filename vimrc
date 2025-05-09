@@ -1,4 +1,4 @@
-" vim Kasumiru config 2023.10.23
+" vim Kasumiru config 2025.05.09
 
 """ Включение подсветки:
 syntax on
@@ -80,7 +80,7 @@ map <F8> :emenu Exec.<Tab>
 "// set iminsert=0                  " раскладка по умолчанию для ввода - английская
 "// set imsearch=0                  " раскладка по умолчанию для поиска - английская
 "// cmap <silent> <C-F> <C-^>
-"// imap <silent> <C-F> <C-^>X<Esc>:call MyKeyMapHighlight()<CR>a<C-H>
+
 "// nmap <silent> <C-F> a<C-^><Esc>:call MyKeyMapHighlight()<CR>
 "// vmap <silent> <C-F> <Esc>a<C-^><Esc>:call MyKeyMapHighlight()<CR>gv
 "// " Переключение раскладок и индикация выбранной в данный момент раскладки -->
@@ -101,22 +101,37 @@ map <F8> :emenu Exec.<Tab>
 
 
 """
+
+
 " запуск в bash
 nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 " Run in python:
 " nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
 " inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 %:p<enter>
+
+" Run in linux
 nnoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
+
+
 " Run in Windows python:
 "nnoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
 "inoremap <c-d> <esc>:w<enter>:!/cygdrive/c/python/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+
+
+" Run in Windows python:
+nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+
+
 " запуск в ansible on specified server
 "nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 "inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
-nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i ami-new.amazon, %:p<enter>
-inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i ami-new.amazon, %:p<enter>
+nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yandex, %:p<enter>
+inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yandex, %:p<enter>
+
+
 " запуск в terraform "
 "nnoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
 "inoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
@@ -125,10 +140,13 @@ inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i ami-new.amazon, 
 "" запуск в terraform """""""""
 nnoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!unset AWS_ACCESS_KEY; unset AWS_SECRET_KEY; terraform apply <enter>
 inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
+
+
 "" запуск в terraform """""""""
 nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
 inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
 """"
+
 
 
 """ При нажатии f6 можно увидеть hex содержимое файла
@@ -165,6 +183,7 @@ endif
 
 
 """ Сменить символу переноса строки цвет:
+" hi NonText ctermfg=7 guifg=gray
 hi NonText ctermfg=8 guifg=gray
 """"
 
@@ -367,7 +386,7 @@ autocmd BufReadPost *
 """ Fix broken insert while using Tmux.
 if &term =~ "screen"
     " Фиг его знает как лучше. нужно тестить. я не помню на каком сервере были ошибки
-    " Следующие две строчки можно раскоммнтировать или закомментировать. 
+    " Следующие две строчки можно раскоммнтировать или закомментировать.
     "let &t_BE = "\e[?2004h"
     "let &t_BD = "\e[?2004l"
     exec "set t_PS=\e[200~"
@@ -401,7 +420,7 @@ autocmd BufRead,BufNewFile *.yaml setl filetype=yml_files_type syntax=slate
 
 """ Закомментировать\раскомментировать строчку, либо выдленный блок текста по "cc" и по ctrl+m
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-autocmd FileType arduino,php      let b:comment_leader = '// '
+autocmd FileType arduino          let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
 autocmd FileType zsh              let b:comment_leader = '# '
 autocmd FileType conf,fstab       let b:comment_leader = '# '
@@ -411,7 +430,7 @@ autocmd FileType vim              let b:comment_leader = '" '
 autocmd FileType ini_files_type   let b:comment_leader = '; '
 autocmd FileType log_files_type   let b:comment_leader = '# '
 autocmd FileType yml_files_type   let b:comment_leader = '# '
-""""
+
 
 ""
 """ Старый вариант комментирования\раскомментирования:
@@ -526,18 +545,33 @@ vnoremap <Tab> >gv
 vnoremap <C-Tab> <gv
 """"
 
-""" запуск текущей строчки, на которой находится курсор в интерпретаторе bash
-function! ExecuteCurrentLineInBash()
-    let current_line = getline('.')
-    execute ":w !source ~/.bashrc 2>/dev/null && /usr/bin/run_from_vim " . shellescape(current_line) . " 2>&1 | grep -v stty"
-endfunction
 
-function! ExecuteSelectedLinesInBash()
-    let selected_lines = getline("'<", "'>")
-    execute ":w !source ~/.bashrc 2>/dev/null && /usr/bin/run_from_vim " . shellescape(join(selected_lines, "\n")) . " 2>&1 | grep -v stty"
-endfunction
-
-nnoremap <C-f> :call ExecuteCurrentLineInBash()<CR>
-vnoremap <C-f> :call ExecuteSelectedLinesInBash()<CR>
+""" отображение номера строки вертикально слева столбиком
+inoremap <S-d> <esc>:w<enter>:set number!<enter>
+nnoremap <S-d> <esc>:w<enter>:set number!<enter>
+"" и ещё по этому хоткею:
+inoremap <S-s> <esc>:w<enter>:set number!<enter>
+nnoremap <S-s> <esc>:w<enter>:set number!<enter>
 """"
 
+""" dev block
+" nnoremap <c-z> <esc>:w<enter>:set number!<enter>
+" inoremap <c-z> <esc>:w<enter>:set number!<enter>
+""""
+set showmode
+set ruler
+set rulerformat=%25(%o\ %l%V\ %p%%%) " 'байт от начала файла' 'номер строки' 'процент положения строки в файле'
+" set laststatus:1
+" set statusline+=%F
+" set showcmd
+" set statusline =%4*\ %<%F%*
+" set title
+" set statusline +=%{resolve(expand('%:p'))}\ %*
+set tabline=%F\ %y  " only the format
+set showtabline=2   " this turns on the tabline
+
+hi TabLineFill ctermfg=Red ctermbg=Black
+hi TabLineSel ctermfg=Red ctermbg=Yellow
+hi Title ctermfg=LightBlue ctermbg=Magenta
+hi TabLine ctermfg=Blue ctermbg=Yellow
+""""
