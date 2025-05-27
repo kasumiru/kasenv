@@ -575,3 +575,9 @@ hi TabLineSel ctermfg=Red ctermbg=Yellow
 hi Title ctermfg=LightBlue ctermbg=Magenta
 hi TabLine ctermfg=Blue ctermbg=Yellow
 """"
+
+
+""" Patch for hilight syntax yml. Не понимаю, почему без этих строк перестала работать подсветка yml
+filetype plugin indent on
+au BufRead,BufNewFile *.yml,*.yaml set filetype=yaml
+"""
