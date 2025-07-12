@@ -3,32 +3,114 @@
 // Place a null value instead of a command string to switch the shortcut off
 
 [
-   {
-      "command": "close_telegram",
-      "keys": "ctrl+]"
-   },
-   {
-      "command": "media_playpause",
-      "keys": "ctrl+e"
-   },
-   {
-      "command": "media_previous",
-      "keys": "ctrl+s"
-   },
-   {
-      "command": "media_next",
-      "keys": "ctrl+d"
-   },
-   {
-      "command": "minimize_telegram",
-      "keys": "ctrl+w"
-   },
-   {
-   "command": "first_chat",
-   "keys": "ctrl+m"
-   },
-   {
-   "command": "last_chat",
-   "keys": "ctrl+alt+m"
-   }
+    { "command": "close_telegram",    "keys": "ctrl+]" },
+    { "command": "quit_telegram",     "keys": null     },
+    { "command": "media_playpause",   "keys": "ctrl+s" },
+    { "command": "media_next",        "keys": "ctrl+e" },
+    { "command": "media_next",        "keys": "ctrl+d" },
+    { "command": "media_previous",    "keys": "ctrl+a" },
+    { "command": "media_previous",    "keys": "ctrl+q" },
+    { "command": "minimize_telegram", "keys": "ctrl+w" },
+    { "command": "first_chat",        "keys": "ctrl+m" },
+    { "command": "last_chat",         "keys": "ctrl+alt+m" },
+    { "command": "self_chat",         "keys": "ctrl+0" },
+    { "command": "all_chats",         "keys": "ctrl+1" },
+    { "command": "pinned_chat1",      "keys": "ctrl+1" },
+    { "command": "pinned_chat2",      "keys": "ctrl+2" },
+    { "command": "pinned_chat3",      "keys": "ctrl+3" },
+    { "command": "folder1",           "keys": "ctrl+2" },
+    { "command": "folder2",           "keys": "ctrl+3" },
+    { "command": "lock_telegram",     "keys": "ctrl+l" },
+    { "command": "account1",          "keys": null },
+    { "command": "account2",          "keys": null },
+    { "command": "account3",          "keys": null }
 ]
+
+// BACKUP
+
+// [
+//     {
+//        "command": "close_telegram",
+//        "keys": "ctrl+]"
+//     },
+//     {
+//         "command": "quit_telegram",
+//         "keys": "ctrl+q"
+//     },
+//     {
+//        "command": "media_playpause",
+//        "keys": "ctrl+s"
+//     },
+//     {
+//        "command": "media_previous",
+//        "keys": "ctrl+a"
+//     },
+//     {
+//        "command": "media_next",
+//        "keys": "ctrl+e"
+//     },
+//     {
+//        "command": "media_previous",
+//        "keys": "ctrl+q"
+//     },
+//     {
+//        "command": "media_next",
+//        "keys": "ctrl+e"
+//     },
+//     {
+//        "command": "minimize_telegram",
+//        "keys": "ctrl+w"
+//     },
+//     {
+//         "command": "first_chat",
+//         "keys": "ctrl+m"
+//     },
+//     {
+//         "command": "last_chat",
+//         "keys": "ctrl+alt+m"
+//     },
+//     {
+//         "command": "self_chat",
+//         "keys": "ctrl+0"
+//     },
+//     {
+//         "command": "pinned_chat1",
+//         "keys": "ctrl+1"
+//     },
+//     {
+//         "command": "all_chats",
+//         "keys": "ctrl+1"
+//     },
+//     {
+//         "command": "pinned_chat2",
+//         "keys": "ctrl+2"
+//     },
+//     {
+//         "command": "folder1",
+//         "keys": "ctrl+2"
+//     },
+//     {
+//         "command": "pinned_chat3",
+//         "keys": "ctrl+3"
+//     },
+//     {
+//         "command": "folder2",
+//         "keys": "ctrl+3"
+//     },
+//     {
+//         "command": "lock_telegram",
+//         "keys": "ctrl+l"
+//     },
+//     {
+//         "command": "account1",
+//         "keys": null
+//     },
+//     {
+//         "command": "account2",
+//         "keys": null
+//     },
+//     {
+//         "command": "account3",
+//         "keys": null
+//     }
+// ]
