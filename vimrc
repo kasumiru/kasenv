@@ -1,4 +1,4 @@
-" vim Kasumiru config 2025.05.09
+" vim Kasumiru config 2026.06.17
 
 """ Включение подсветки:
 syntax on
