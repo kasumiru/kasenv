@@ -4,6 +4,36 @@
 syntax on
 """"
 
+filetype plugin indent on
+
+
+
+""" Кастомное определение типов файлов (всё в одном месте)
+augroup CustomFileTypes
+  autocmd!
+
+  " PHP-FPM и OpenConnect VPN
+  autocmd BufRead,BufNewFile /etc/php*/**/*.conf,**/fpm/pool.d/*.conf setlocal filetype=dosini
+  autocmd BufRead,BufNewFile /etc/php-fpm.conf,/etc/php-fpm.d/*.conf   setlocal filetype=dosini
+  autocmd BufRead,BufNewFile /etc/ocserv/*.conf                       setlocal filetype=dosini
+  autocmd BufRead,BufNewFile *.ini                                    setlocal filetype=dosini
+
+  " Nginx
+  autocmd BufRead,BufNewFile /etc/nginx/conf.d/*.conf                 setlocal filetype=nginx
+  autocmd BufRead,BufNewFile kpb.lt.ShortCutter.conf                  setlocal filetype=nginx
+
+  " Скрипты и системные конфиги ZSH
+  autocmd BufRead,BufNewFile /opt/scripts/domains.txt                 setlocal filetype=zsh
+  autocmd BufRead,BufNewFile /bin/b.cmd,/bin/b.rsynct                 setlocal filetype=zsh
+  autocmd BufRead,BufNewFile */.bashrc.kas.s                          setlocal filetype=zsh
+
+  " Логи и YAML
+  autocmd BufRead,BufNewFile *.log                                    setlocal filetype=slate
+  autocmd BufRead,BufNewFile *.yml,*.yaml                             setlocal filetype=yaml
+augroup END
+""""
+
+
 """ ===== LOCALE SETTINGS =====
 set encoding=utf-8
 """"
@@ -55,23 +85,6 @@ map <F8> :emenu Exec.<Tab>
 """"
 
 
-"""
-"""" Work not in centos 7, vim 7.4:
-"""" автодополнение текста по табу
-"function! InsertTabWrapper(direction)
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"       return "\<tab>"
-"   elseif "backward" == a:direction
-"       return "\<c-p>"
-"   else
-"       return "\<c-n>"
-"   endif
-"endfunction
-"inoremap <tab> <c-r>=InsertTabWrapper ("forward")<cr>
-"inoremap <s-tab> <c-r>=InsertTabWrapper ("backward")<cr>
-""""
-
 
 """ Что бы в русской раскладке работали сочетания клавиш
 """ переключение на русскую/английскую раскладку по ^f (Ctrl + F)
@@ -101,8 +114,6 @@ map <F8> :emenu Exec.<Tab>
 
 
 """
-
-
 " запуск в bash
 nnoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
 inoremap <c-a> <esc>:w<enter>:!/bin/bash %:p<enter>
@@ -395,28 +406,6 @@ endif
 """"
 
 
-""" Включение подсветки для кастомных файлов
-""" все варанты пожно глянуть тут /usr/share/vim/vim74/syntax/
-" highlight set syntax for php-fpm
-"autocmd BufRead,BufNewFile *.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php/*/fpm/*.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php/*/fpm/pool.d/*.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php-fpm.d/*.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/php-fpm.conf set syntax=dosini
-autocmd BufRead,BufNewFile /etc/nginx/conf.d/kpb.lt.ShortCutter.conf set syntax=dosini
-autocmd BufRead,BufNewFile kpb.lt.ShortCutter.conf set syntax=zsh
-autocmd BufRead,BufNewFile /etc/nginx/conf.d/*.conf set syntax=zsh
-autocmd BufRead,BufNewFile /opt/scripts/domains.txt set syntax=zsh
-autocmd BufRead,BufNewFile *.ini setl filetype=ini_files_type syntax=dosini
-autocmd BufRead,BufNewFile /bin/b.cmd set syntax=zsh
-autocmd BufRead,BufNewFile /bin/b.rsynct set syntax=zsh
-autocmd BufRead,BufNewFile /root/.bashrc.kas.s set syntax=zsh
-"autocmd BufRead,BufNewFile *.log set syntax=zsh
-autocmd BufRead,BufNewFile *.log setl filetype=log_files_type syntax=slate
-autocmd BufRead,BufNewFile *.yml setl filetype=yml_files_type syntax=slate
-autocmd BufRead,BufNewFile *.yaml setl filetype=yml_files_type syntax=slate
-""""
-
 
 """ Закомментировать\раскомментировать строчку, либо выдленный блок текста по "cc" и по ctrl+m
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
@@ -499,7 +488,7 @@ noremap   <silent> <c-m>      :call ToggleComment()<CR>
 
 
 
-""" Исправляет вставку лесенкой fix ladder paste:
+""" Исправляет вставку лесенкой fix ladder paste: (фикс)
 set paste
 set noai
 set noautoindent
@@ -575,9 +564,3 @@ hi TabLineSel ctermfg=Red ctermbg=Yellow
 hi Title ctermfg=LightBlue ctermbg=Magenta
 hi TabLine ctermfg=Blue ctermbg=Yellow
 """"
-
-
-""" Patch for hilight syntax yml. Не понимаю, почему без этих строк перестала работать подсветка yml
-filetype plugin indent on
-au BufRead,BufNewFile *.yml,*.yaml set filetype=yaml
-"""
