@@ -1,4 +1,4 @@
-" vim Kasumiru config 2026.06.17
+" vim Kasumiru config 2026.06.24
 
 """ Включение подсветки:
 syntax on
@@ -564,3 +564,39 @@ hi TabLineSel ctermfg=Red ctermbg=Yellow
 hi Title ctermfg=LightBlue ctermbg=Magenta
 hi TabLine ctermfg=Blue ctermbg=Yellow
 """"
+
+
+
+
+""" сохранить на ctrl s
+" nnoremap <c-s> <esc>:w<enter>
+" inoremap <c-s> <esc>:w<enter>
+""""
+
+
+
+function! SmartWriteQuit()
+  " если файл нельзя писать — делаем sudo save
+  if !filewritable(expand('%'))
+    silent! execute 'write !sudo tee % >/dev/null'
+    set nomodified
+  else
+    write
+  endif
+  quit
+endfunction
+
+command! -bar WQ call SmartWriteQuit()
+command! -bar Wq call SmartWriteQuit()
+
+" подменяем и wq, и wq!
+cabbrev wq Wq
+cabbrev wq! Wq
+
+" " сохранить на Ctrl+S с авто-повышением прав
+" nnoremap <C-s> :silent! execute 'w !sudo tee % >/dev/null' \| set nomodified \| edit!<CR>
+" inoremap <C-s> <Esc>:silent! execute 'w !sudo tee % >/dev/null' \| set nomodified \| edit!<CR>
+
+" сохранить на Ctrl+S с авто-повышением прав
+nnoremap <C-s> :silent! call SmartWriteQuit()<CR>
+inoremap <C-s> <Esc>:silent! call SmartWriteQuit()<CR>
