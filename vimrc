@@ -132,8 +132,8 @@ inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 
 
 " Run in Windows python:
-nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 $(/usr/bin/cygpath -w "%:p")<enter>
-inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+" nnoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 $(/usr/bin/cygpath -w "%:p")<enter>
+" inoremap <c-d> <esc>:w<enter>:!/usr/bin/python3 $(/usr/bin/cygpath -w "%:p")<enter>
 
 
 " запуск в ansible on specified server
