@@ -600,3 +600,29 @@ cabbrev wq! Wq
 " сохранить на Ctrl+S с авто-повышением прав
 nnoremap <C-s> :silent! call SmartWriteQuit()<CR>
 inoremap <C-s> <Esc>:silent! call SmartWriteQuit()<CR>
+""""
+
+
+""" sudo save files
+function! SmartWriteQuit()
+  " если файл нельзя писать — делаем sudo save
+  if !filewritable(expand('%'))
+    silent! execute 'write !sudo tee % >/dev/null'
+    set nomodified
+  else
+    write
+  endif
+  quit
+endfunction
+
+command! -bar WQ call SmartWriteQuit()
+command! -bar Wq call SmartWriteQuit()
+
+" подменяем и wq, и wq!
+cabbrev wq Wq
+cabbrev wq! Wq
+
+" сохранить на Ctrl+S с авто-повышением прав
+nnoremap <C-s> :silent! call SmartWriteQuit()<CR>
+inoremap <C-s> <Esc>:silent! call SmartWriteQuit()<CR>
+""""
