@@ -137,11 +137,8 @@ inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 
 
 " запуск в ansible on specified server
-"nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
-"inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
-nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yandex, %:p<enter>
-inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yandex, %:p<enter>
-
+nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 
 " запуск в terraform "
 "nnoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
@@ -149,15 +146,14 @@ inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yande
 "map <c-g>  :!sh -xc 'git commit -a -m "test"'
 "map <c-g>  :!sh -xc ''terraform apply || terraform init'
 "" запуск в terraform """""""""
-nnoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!unset AWS_ACCESS_KEY; unset AWS_SECRET_KEY; terraform apply <enter>
-inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
+" nnoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!unset AWS_ACCESS_KEY; unset AWS_SECRET_KEY; terraform apply <enter>
+" inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
 
 
 "" запуск в terraform """""""""
-nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
-inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
+" nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
+" inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
 """"
-
 
 
 """ При нажатии f6 можно увидеть hex содержимое файла
