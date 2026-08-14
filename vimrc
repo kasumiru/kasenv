@@ -532,12 +532,22 @@ vnoremap <C-Tab> <gv
 
 
 """ отображение номера строки вертикально слева столбиком
-inoremap <S-d> <esc>:w<enter>:set number!<enter>
-nnoremap <S-d> <esc>:w<enter>:set number!<enter>
+"inoremap <S-d> <esc>:w<enter>:set number!<enter>
+"nnoremap <S-d> <esc>:w<enter>:set number!<enter>
 "" и ещё по этому хоткею:
-inoremap <S-s> <esc>:w<enter>:set number!<enter>
-nnoremap <S-s> <esc>:w<enter>:set number!<enter>
+"inoremap <S-s> <esc>:w<enter>:set number!<enter>
+"nnoremap <S-s> <esc>:w<enter>:set number!<enter>
 """"
+
+""" отображение номера строки вертикально слева столбиком
+inoremap <A-S-d> <esc>:w<enter>:set number!<enter>
+nnoremap <A-S-d> <esc>:w<enter>:set number!<enter>
+"" и ещё по этому хоткею:
+inoremap <A-S-s> <esc>:w<enter>:set number!<enter>
+nnoremap <A-S-s> <esc>:w<enter>:set number!<enter>
+""""
+
+
 
 """ dev block
 " nnoremap <c-z> <esc>:w<enter>:set number!<enter>
