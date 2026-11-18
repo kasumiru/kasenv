@@ -1,10 +1,13 @@
-" vim Kasumiru config 2026.07.14
+" vim Kasumiru config 2026.11.18 фикс прокрутки текста фикс вставки лесенкой фикс нумерации строк
+"
+"
 
 """ Включение подсветки:
 syntax on
 """"
 
-filetype plugin indent on
+filetype plugin on
+filetype indent off
 
 
 
@@ -137,8 +140,11 @@ inoremap <c-d> <esc>:w<enter>:!/usr/bin/env python3 %:p<enter>
 
 
 " запуск в ansible on specified server
-nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
-inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+"nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+"inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
+"nnoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yandex, %:p<enter>
+"inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook -i upstream01.yandex, %:p<enter>
+
 
 " запуск в terraform "
 "nnoremap <c-g><c-h> <esc>:w<enter>:!bash -c 'terraform apply'<enter>
@@ -146,13 +152,12 @@ inoremap <c-x> <esc>:w<enter>:!/usr/bin/env ansible-playbook %:p<enter>
 "map <c-g>  :!sh -xc 'git commit -a -m "test"'
 "map <c-g>  :!sh -xc ''terraform apply || terraform init'
 "" запуск в terraform """""""""
-" nnoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!unset AWS_ACCESS_KEY; unset AWS_SECRET_KEY; terraform apply <enter>
-" inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
-
-
+"nnoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!unset AWS_ACCESS_KEY; unset AWS_SECRET_KEY; terraform apply <enter>
+"inoremap <c-g><c-g><c-g><c-g><c-g><c-g> <esc>:w<enter>:!terraform apply <enter>
+"
 "" запуск в terraform """""""""
-" nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
-" inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
+"nnoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
+"inoremap <c-i><c-i><c-i><c-i><c-i><c-i> <esc>:w<enter>:!terraform init <enter>
 """"
 
 
@@ -287,10 +292,10 @@ au FileType * set fo-=c fo-=r fo-=o
 "# retab        -> Convert existing tabs to spaces
 set tabstop=4
 set expandtab
-set autoindent
-set smartindent
+set noautoindent
+set nosmartindent
+set nocindent
 set shiftwidth=4
-set cindent
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
@@ -319,18 +324,6 @@ inoremap <A-Down> <Esc>:m+<CR>
 nnoremap <c-e> *
 " поиск по слову под курсором вперёд
 nnoremap <c-q> #
-""""
-
-
-""" плавная построчная прокрутка на ctrl e && ctrl w: ВВЕРХ
-nnoremap <S-q> <c-y>
-inoremap <S-q> <c-y>
-""""
-
-
-""" плавная построчная прокрутка на ctrl e && ctrl w: ВНИЗ
-nnoremap <S-e> <c-e>
-inoremap <S-e> <c-e>
 """"
 
 
@@ -390,15 +383,12 @@ autocmd BufReadPost *
 """"
 
 
-""" Fix broken insert while using Tmux.
-if &term =~ "screen"
-    " Фиг его знает как лучше. нужно тестить. я не помню на каком сервере были ошибки
-    " Следующие две строчки можно раскоммнтировать или закомментировать.
-    "let &t_BE = "\e[?2004h"
-    "let &t_BD = "\e[?2004l"
-    exec "set t_PS=\e[200~"
-    exec "set t_PE=\e[201~"
-endif
+""" Фикс вставки лесенкой
+""" Bracketed paste: вставка одним блоком, без лесенки. И в tmux, и без tmux.
+let &t_BE = "\e[?2004h"
+let &t_BD = "\e[?2004l"
+exec "set t_PS=\e[200~"
+exec "set t_PE=\e[201~"
 """"
 
 
@@ -484,10 +474,19 @@ noremap   <silent> <c-m>      :call ToggleComment()<CR>
 
 
 
-""" Исправляет вставку лесенкой fix ladder paste: (фикс)
-set paste
-set noai
+""" Автоотступы выключены навсегда. Вставка не уходит лесенкой,
+""" даже если терминал или tmux не прислали bracketed paste.
+""" ftplugin снова включает indent после чтения vimrc — сбрасываем каждый раз.
+set nopaste
 set noautoindent
+set nosmartindent
+set nocindent
+set indentexpr=
+augroup NoAutoIndent
+  autocmd!
+  autocmd FileType,BufNewFile,BufEnter,BufWinEnter,InsertEnter *
+    \ setlocal noautoindent nosmartindent nocindent indentexpr= indentkeys=
+augroup END
 """"
 
 
@@ -531,22 +530,6 @@ vnoremap <C-Tab> <gv
 """"
 
 
-""" отображение номера строки вертикально слева столбиком
-"inoremap <S-d> <esc>:w<enter>:set number!<enter>
-"nnoremap <S-d> <esc>:w<enter>:set number!<enter>
-"" и ещё по этому хоткею:
-"inoremap <S-s> <esc>:w<enter>:set number!<enter>
-"nnoremap <S-s> <esc>:w<enter>:set number!<enter>
-""""
-
-""" отображение номера строки вертикально слева столбиком
-inoremap <A-S-d> <esc>:w<enter>:set number!<enter>
-nnoremap <A-S-d> <esc>:w<enter>:set number!<enter>
-"" и ещё по этому хоткею:
-inoremap <A-S-s> <esc>:w<enter>:set number!<enter>
-nnoremap <A-S-s> <esc>:w<enter>:set number!<enter>
-""""
-
 
 
 """ dev block
@@ -580,33 +563,33 @@ hi TabLine ctermfg=Blue ctermbg=Yellow
 """"
 
 
-
-function! SmartWriteQuit()
-  " если файл нельзя писать — делаем sudo save
-  if !filewritable(expand('%'))
-    silent! execute 'write !sudo tee % >/dev/null'
-    set nomodified
-  else
-    write
-  endif
-  quit
-endfunction
-
-command! -bar WQ call SmartWriteQuit()
-command! -bar Wq call SmartWriteQuit()
-
-" подменяем и wq, и wq!
-cabbrev wq Wq
-cabbrev wq! Wq
-
-" " сохранить на Ctrl+S с авто-повышением прав
-" nnoremap <C-s> :silent! execute 'w !sudo tee % >/dev/null' \| set nomodified \| edit!<CR>
-" inoremap <C-s> <Esc>:silent! execute 'w !sudo tee % >/dev/null' \| set nomodified \| edit!<CR>
-
-" сохранить на Ctrl+S с авто-повышением прав
-nnoremap <C-s> :silent! call SmartWriteQuit()<CR>
-inoremap <C-s> <Esc>:silent! call SmartWriteQuit()<CR>
 """"
+"""" function! SmartWriteQuit()
+""""   " если файл нельзя писать — делаем sudo save
+""""   if !filewritable(expand('%'))
+""""     silent! execute 'write !sudo tee % >/dev/null'
+""""     set nomodified
+""""   else
+""""     write
+""""   endif
+""""   quit
+"""" endfunction
+""""
+"""" command! -bar WQ call SmartWriteQuit()
+"""" command! -bar Wq call SmartWriteQuit()
+""""
+"""" " подменяем и wq, и wq!
+"""" cabbrev wq Wq
+"""" cabbrev wq! Wq
+""""
+"""" " " сохранить на Ctrl+S с авто-повышением прав
+"""" " nnoremap <C-s> :silent! execute 'w !sudo tee % >/dev/null' \| set nomodified \| edit!<CR>
+"""" " inoremap <C-s> <Esc>:silent! execute 'w !sudo tee % >/dev/null' \| set nomodified \| edit!<CR>
+""""
+"""" " сохранить на Ctrl+S с авто-повышением прав
+"""" nnoremap <C-s> :silent! call SmartWriteQuit()<CR>
+"""" inoremap <C-s> <Esc>:silent! call SmartWriteQuit()<CR>
+"""" """"
 
 
 """ sudo save files
@@ -622,13 +605,43 @@ function! SmartWriteQuit()
 endfunction
 
 command! -bar WQ call SmartWriteQuit()
-command! -bar Wq call SmartWriteQuit()
+" command! -bar Wq call SmartWriteQuit()
 
 " подменяем и wq, и wq!
-cabbrev wq Wq
-cabbrev wq! Wq
+"cabbrev wq Wq
+"cabbrev wq! Wq
 
 " сохранить на Ctrl+S с авто-повышением прав
 nnoremap <C-s> :silent! call SmartWriteQuit()<CR>
 inoremap <C-s> <Esc>:silent! call SmartWriteQuit()<CR>
+""""
+
+
+
+"""
+""" плавная построчная прокрутка на shift Q ВВЕРХ
+""" плавная построчная прокрутка на shift E ВНИЗ
+nnoremap Q <C-y>
+xnoremap Q <C-y>
+nnoremap E <C-e>
+xnoremap E <C-e>
+""""
+
+
+""" Номера строк слева по F2.
+nnoremap <F2> :w<enter>:set number!<enter>
+inoremap <F2> <esc>:w<enter>:set number!<enter>
+""" Shift+S и Shift+D ничего не делают. Строки удаляются через dd.
+""" В режиме ввода S и D по-прежнему печатаются как буквы.
+noremap S <Nop>
+noremap D <Nop>
+""""
+
+
+""" Номера строк слева по F2.
+nnoremap <F2> :w<enter>:set number!<enter>
+inoremap <F2> <esc>:w<enter>:set number!<enter>
+""" D — номера строк, только в normal. В insert это просто буква D.
+nnoremap D :set number!<CR>
+noremap S <Nop>
 """"
